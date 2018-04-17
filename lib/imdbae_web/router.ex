@@ -23,6 +23,7 @@ defmodule ImdbaeWeb.Router do
   scope "/", ImdbaeWeb do
     pipe_through :browser # Use the default browser stack
     get "/", PageController, :index
+    get "/chat", PageController, :chat
 
     resources "/users", UserController
 
