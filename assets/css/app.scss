@@ -10,7 +10,11 @@
 }
 
 .card-messages, .card-users {
-    height: 400px;
+    height: 75vh;
+}
+
+.card-header {
+    background-color: pink; //pick an actual rbg val later
 }
 
 #chat-messages {
