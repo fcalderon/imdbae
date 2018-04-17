@@ -38,4 +38,8 @@
     </div> <!-- /container -->
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
+  <footer>
+    <img src="<%= static_path(@conn, "/images/tmdblogo.png") %>" alt="TMDb logo" style="width:50px;height50px;">
+    <p>This product uses the TMDb API but is not endorsed or certified by TMDb</p>
+  </footer>
 </html>

@@ -69,9 +69,45 @@ defmodule Imdbae.Accounts do
   """
   def get_and_auth_user(email, password) do
     user = get_user_by_email(email)
-    case Comeonin.Argon2.check_pass(user, password) do
-      {:ok, user} -> user
+    case throttle_attempts(user) do
+      {:ok, user} -> case Comeonin.Argon2.check_pass(user, password) do
+        {:ok, user} -> {:ok, user}
+        _else ->  {:error, "bad password"}
+      end
+      {:error, reason} -> {:error, reason}
       _else -> nil
+    end
+  end
+
+  @doc """
+  Password attempt throttling.
+  Attr: Nat Tuck, Fall 2017 lecture 10
+  """
+  def update_tries(throttle, prev) do
+    if throttle do
+      prev + 1
+    else
+      1 
+    end
+  end
+
+  #allows 5 attempts, before locking account for five minutes
+  def throttle_attempts(user) do
+    y2k = DateTime.from_naive!(~N[2000-01-01 00:00:00], "Etc/UTC")
+    prv = DateTime.to_unix(user.pw_last_try || y2k)
+    now = DateTime.to_unix(DateTime.utc_now())
+    thr = (now - prv) < 300
+
+    if (thr && user.pw_tries > 5) do
+      {:error, "your account is locked"} 
+    else
+      changes = %{
+        pw_tries: update_tries(thr, user.pw_tries),
+        pw_last_try: DateTime.utc_now(),
+      }
+      {:ok, user} = Ecto.Changeset.cast(user, changes, [:pw_tries, :pw_last_try])
+                    |> Imdbae.Repo.update
+                    {:ok, user}
     end
   end
 

@@ -7,16 +7,20 @@ defmodule ImdbaeWeb.SessionController do
 
   #TODO: change redirect
   def create(conn, %{"email" => email, "password" => password}) do
-    user = Accounts.get_and_auth_user(email, password)
-    if user do
-      conn
-      |> put_session(:user_id, user.id)
-      |> put_flash(:info, "Welcome back #{user.name}")
-      |> redirect(to: page_path(conn, :index))
-    else
-      conn
-      |> put_flash(:error, "Can't create session")
-      |> redirect(to: page_path(conn, :index))
+    case Accounts.get_and_auth_user(email, password) do
+      {:ok, user} ->
+        conn
+        |> put_session(:user_id, user.id)
+        |> put_flash(:info, "Welcome back #{user.name}")
+        |> redirect(to: page_path(conn, :index))
+      {:error, reason} ->
+        conn
+          |> put_flash(:error, reason)
+          |> redirect(to: page_path(conn, :index))
+      _else ->
+        conn
+          |> put_flash(:error, "Can't create session")
+          |> redirect(to: page_path(conn, :index))
     end
   end
 
