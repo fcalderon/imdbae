@@ -2,7 +2,6 @@ defmodule Imdbae.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
-
   schema "users" do
     field :email, :string
     field :name, :string
@@ -10,6 +9,9 @@ defmodule Imdbae.Accounts.User do
     field :password_hash, :string
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
+
+    field :pw_tries, :integer
+    field :pw_last_try, :utc_datetime
 
     timestamps()
   end
@@ -25,8 +27,6 @@ defmodule Imdbae.Accounts.User do
     |> put_pass_hash()
     |> validate_required([:email, :name, :password_hash])
   end
-
-
 
   #password validation. Attr: Comeonin docs
   def validate_password(changeset, field, options \\ []) do
@@ -44,7 +44,31 @@ defmodule Imdbae.Accounts.User do
   def put_pass_hash(changeset), do: changeset
 
   def valid_password?(password) when byte_size(password) > 7 do
-    {:ok, password}
+
+    #Attr: Passwords pulled from GeekNoob.com
+    commonpasswords = ["password", "12345678", "meowmeow", "11111111", 
+                       "marlboro", "danielle", "asdfasdf", "trustno1", 
+                       "redskins", "airborne", "elephant", "victoria",
+                       "monalisa", "cocacola", "baseball", "football", 
+                       "internet", "testing123", "godzilla", "explorer", 
+                       "williams", "lifehack", "christin", "butthead", 
+                       "december", "mountain", "dickhead", "platinum",
+                       "brooklyn", "jennifer", "lionking", "pa55word", 
+                       "mercedes", "benjamin", "brandon", "superman", 
+                       "Rush2112", "jonathan", "garfield", "shithead",
+                       "redwings", "startrek", "xxxxxxxx", "michigan", 
+                       "88888888", "69696969", "87654321", "nicholas", 
+                       "metallic", "scorpion", "jordan23", "21212121",
+                       "bigdaddy", "liverpoo", "guinness", "qwertyui", 
+                       "michelle", "Midnight", "einstein", "sunshine",
+                       "password1"]
+
+    if (Enum.member?(commonpasswords, password)) do
+      {:error, "Password is too common"}
+    else
+      {:ok, password}
+    end
   end
   def valid_password?(_), do: {:error, "The password is too short"}
-end
+
+end  
