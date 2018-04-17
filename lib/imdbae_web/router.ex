@@ -33,7 +33,8 @@ defmodule ImdbaeWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", ImdbaeWeb do
-  #   pipe_through :api
-  # end
+   scope "/api/v1", ImdbaeWeb do
+     pipe_through :api
+     resources "/matches", MatchController, except: [:new, :edit]
+   end
 end
