@@ -1,5 +1,7 @@
 defmodule ImdbaeWeb.ChatsChannel do
   use ImdbaeWeb, :channel
+  alias Imdbae.Social
+  alias Social.Match
 
   def join("chats:lobby", payload, socket) do
     if authorized?(payload) do
@@ -8,6 +10,12 @@ defmodule ImdbaeWeb.ChatsChannel do
       {:error, %{reason: "unauthorized"}}
     end
   end
+
+  #allows user to join channel to chat with matches
+  def join("chats:" <> match_name, _params, socket) do
+    {:ok, socket}
+  end
+
 
   # Channels can be used in a request/response fashion
   # by sending replies to requests from the client
