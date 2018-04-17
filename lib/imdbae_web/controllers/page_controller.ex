@@ -8,4 +8,8 @@ defmodule ImdbaeWeb.PageController do
   def chat(conn, _params) do
     render conn, "chat.html"
   end
+
+  def movies(conn, _params) do
+    render conn, "movies.html"
+  end
 end

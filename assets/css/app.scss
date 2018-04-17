@@ -1,6 +1,10 @@
 /* This file is for your main application css. */
 @import "bootstrap";
 
+.container {
+	margin-top: 20px;
+}
+
 .chat {
     margin-top: 0em;
 }
@@ -10,7 +14,7 @@
 }
 
 .card-messages, .card-users {
-    height: 75vh;
+    height: 60vh;
 }
 
 .card-header {
@@ -20,4 +24,28 @@
 #chat-messages {
     min-height: 400px;
     overflow-y: scroll;
+}
+
+.navbar { 
+	background-color: pink;
+}
+
+.navbar-brand {
+	font-weight: bold;
+	color:black;
+}
+
+.nav-item a{
+	color: black;
+	font-weight: bold;
+}
+
+footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	padding-left: 20px;
+	padding-top: 15px;
+	width: 100%;
+	background-color: pink;
 }

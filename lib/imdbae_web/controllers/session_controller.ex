@@ -5,14 +5,13 @@ defmodule ImdbaeWeb.SessionController do
 
   alias Imdbae.Accounts
 
-  #TODO: change redirect
   def create(conn, %{"email" => email, "password" => password}) do
     case Accounts.get_and_auth_user(email, password) do
       {:ok, user} ->
         conn
         |> put_session(:user_id, user.id)
         |> put_flash(:info, "Welcome back #{user.name}")
-        |> redirect(to: page_path(conn, :index))
+        |> redirect(to: page_path(conn, :movies))
       {:error, reason} ->
         conn
           |> put_flash(:error, reason)
