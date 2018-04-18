@@ -46,11 +46,11 @@ defmodule ImdbaeWeb.Router do
     authorization_header_value = get_req_header(conn, "authorization")
 
     if (length(authorization_header_value) > 0) do
-      signingKey = Application.get_env(:tracker, :app_salt)
+      signingKey = Application.get_env(:imdbae, :app_salt)
 
       authToken = String.replace(Enum.at(authorization_header_value, 0), "Bearer ", "")
 
-      handle_user_auth(Phoenix.Token.verify(TrackerWeb.Endpoint, signingKey, authToken), conn)
+      handle_user_auth(Phoenix.Token.verify(ImdbaeWeb.Endpoint, signingKey, authToken), conn)
 
     else
       conn
