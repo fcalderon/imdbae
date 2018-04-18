@@ -24,7 +24,7 @@ import start_chat from "./chat"
 //might not need this game
 function chat_init(chat) {
     console.log("Join init");
-    start_chat(chat);
+    //start_chat(chat);
 }
 
 
