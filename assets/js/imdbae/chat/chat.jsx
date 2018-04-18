@@ -1,5 +1,5 @@
 //import React from 'react';
-import socket from './socket';
+import socket from '../../socket';
 
 export default function start_chat(chat) {
     let channel = socket.channel("chats:1", {});
