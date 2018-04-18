@@ -13,15 +13,14 @@ socket.connect()
 
     let channel = socket.channel("chats:1", {});
     let message = $('#message-input');
-    let name = "name"; 
+    console.log("socket", socket);
     let chatMessages = document.getElementById("chat-messages");
 
     message.focus();
 
     message.on('keypress', (event) => {
         if(event.keyCode == 13) {
-            channel.push('message:new', { message: message.val(),
-                                          user: name });
+            channel.push('message:new', { message: message.val() });
             message.val("");
         }
     });

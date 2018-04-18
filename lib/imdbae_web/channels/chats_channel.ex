@@ -2,6 +2,7 @@ defmodule ImdbaeWeb.ChatsChannel do
   use ImdbaeWeb, :channel
   alias Imdbae.Social
   alias Social.Match
+  alias Imdbae.Accounts
 
   def join("chats:lobby", payload, socket) do
     if authorized?(payload) do
@@ -30,9 +31,10 @@ defmodule ImdbaeWeb.ChatsChannel do
     {:noreply, socket}
   end
 
-  def handle_in("message:new", %{"user" => user, "message" => msg}, socket) do
-    broadcast! socket, "message:new", %{user: user,
-                                        message: msg}
+  def handle_in("message:new", payload, socket) do
+    user = Accounts.get_user(socket.assigns.user_id)
+    broadcast! socket, "message:new", %{user: user.name,
+                                        message: payload["message"]}
     {:noreply, socket}
   end
 
