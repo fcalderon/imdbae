@@ -8,6 +8,7 @@ defmodule ImdbaeWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :put_user_token
   end
 
   def get_current_user(conn, _params) do
@@ -18,6 +19,12 @@ defmodule ImdbaeWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+  end
+
+  defp put_user_token(conn, _params) do
+    user_id = get_session(conn, :user_id)
+    user_token = Phoenix.Token.sign(conn, "user_id", user_id)
+    assign(conn, :user_id, user_token)
   end
 
   scope "/", ImdbaeWeb do
