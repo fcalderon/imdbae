@@ -1,32 +1,46 @@
 import React from 'react';
 
 export const Nav = (props) => {
-  return (<nav className="navbar navbar-expand-lg navbar-light bg-light">
+  return (<nav className="navbar navbar-expand-lg">
     <a className={'navbar-brand'}>IMDbae</a>
+    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span className="navbar-toggler-icon"></span>
+    </button>
+
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul className={'navbar-nav mr-auto'}>
+        <li className={'nav-item'}>
+          <a className={'nav-link'} href="/">Home</a>
+        </li>
+      </ul>
       {
         props.currentUser
           ?
-          <ul className={'navbar-nav mr-auto'}>
-            <li className={'nav-item'}>
-              <span className={'navbar-text'}>
-                Logged in as: <a>{props.currentUser.name}</a>
-              </span>
-            </li>
-            <li className={'nav-item'}>
-              <a onClick={ () => props.handleLogOut() }>
-                Log Out
-              </a>
-            </li>
-          </ul>
+          (<div>
+            <ul className={'navbar-nav mr-auto'}>
+              <li className={'nav-item'}>
+                <a className={'nav-link'}>
+                  {props.currentUser.name}
+                </a>
+              </li>
+              <li className={'nav-item'}>
+                <a className={'nav-link'} onClick={() => props.handleLogOut()}>
+                  Log Out
+                </a>
+              </li>
+            </ul>
+          </div>)
           :
-          <ul className={'navbar-nav mr-auto'}>
-            <li className={'nav-item'}>
-         <span className={'navbar-text'}>
-            Not Logged In
-          </span>
-            </li>
-          </ul>
+          <div>
+            <ul className={'navbar-nav mr-auto'}>
+              <li className={'nav-item'}>
+                <a className={'nav-link'} href={'/login'}>
+                  Login
+                </a>
+              </li>
+            </ul>
+          </div>
 
       }
     </div>

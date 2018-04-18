@@ -2,9 +2,10 @@ import React from 'react';
 import * as ReactDOM from 'react-dom';
 import {Footer} from "./layout/footer";
 import {Nav} from "./layout/nav";
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {Login} from "./auth/login";
 import {authService} from "./auth/service/auth.service";
+import {Movies} from "./movies/movies-page";
 
 export class IMDbae extends React.Component {
   constructor(){
@@ -51,23 +52,25 @@ export class IMDbae extends React.Component {
         console.error('There was an error authenticating user', error);
       });
   }
+
   render() {
-    return(<div>
-      <Nav currentUser={this.state.currentUser} handleLogOut={ () => { this.handleLogOut() }}/>
-      <div className={'container mt-4'}>
-        {
-          this.state.currentUser
-            ?
-            <p>Logged in</p>
-
-            :
-            <Login onChange={ (formField) => { this.handleOnChange(formField)}}
-                   handleLogin={ () => this.handleLogin() }/>
-
-        }
+    return (<Router>
+      <div>
+        <Nav currentUser={this.state.currentUser} handleLogOut={() => {
+          this.handleLogOut()
+        }}/>
+        <div className={'container mt-4'}>
+          <Route path={'/'} exact={true} render={(props) => <h1>You are home!</h1>}/>
+          <Route path={'/movies'} exact={true} render={(props) => <Movies/>}/>
+          <Route path={'/login'} exact={true}
+                 render={(props) => <Login onChange={(formField) => {
+                   this.handleOnChange(formField)
+                 }}
+                                           handleLogin={() => this.handleLogin()}/>}/>
+        </div>
+        <Footer/>
       </div>
-      <Footer/>
-    </div>);
+    </Router>);
   }
 }
 
