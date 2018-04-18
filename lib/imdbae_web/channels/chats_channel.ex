@@ -30,6 +30,12 @@ defmodule ImdbaeWeb.ChatsChannel do
     {:noreply, socket}
   end
 
+  def handle_in("message:new", %{"user" => user, "message" => msg}, socket) do
+    broadcast! socket, "message:new", %{user: user,
+                                        message: msg}
+    {:noreply, socket}
+  end
+
   # Add authorization logic here as required.
   defp authorized?(_payload) do
     true
