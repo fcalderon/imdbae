@@ -3,6 +3,8 @@ defmodule ImdbaeWeb.UserSocket do
 
   ## Channels
   # channel "room:*", ImdbaeWeb.RoomChannel
+  channel "chats:lobby", ImdbaeWeb.ChatsChannel
+  channel "chats:*", ImdbaeWeb.ChatsChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

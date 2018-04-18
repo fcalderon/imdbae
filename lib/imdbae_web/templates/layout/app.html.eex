@@ -12,18 +12,30 @@
   </head>
 
   <body>
-    <div class="container">
-      <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
-          </ul>
-        </nav>
-        <span class="logo"></span>
-      </header>
+    <nav class="navbar sticky-top">
+      <%= if @current_user do %>
+        <%=link "IMDbae", to: page_path(@conn, :movies), class: "navbar-brand" %>
+        <span class="nav-item nav-link">
+          <%= link "Chat", to: page_path(@conn, :chat) %>
+        </span>
+        <span class="nav-item navbar-text">
+          Logged in as: <%= link @current_user.name, to: user_path(@conn, :show, @current_user) %> || <%= link "Log Out", to: "/session", method: :delete %>
+        </span>
 
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <% else %>
+        <%= link "IMDbae", to: page_path(@conn, :index), class: "navbar-brand" %>
+        <span class="nav-item navbar-text">
+          Not Logged In
+        </span>
+      <% end %>
+    </nav>
+
+      <%= if get_flash(@conn, :info) do %>
+        <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+      <% end %>
+      <%= if get_flash(@conn, :error) do %>
+        <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <% end %> 
 
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
@@ -32,4 +44,14 @@
     </div> <!-- /container -->
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
+  <footer>
+    <div class="row">
+      <div class="col-2">
+        <img src="<%= static_path(@conn, "/images/tmdblogo.png") %>" alt="TMDb logo" style="width:50px;height50px;">
+      </div>
+      <div class="col">
+        <p>This product uses the TMDb API but is not endorsed or certified by TMDb</p>
+      </div>
+    </div>
+  </footer>
 </html>

@@ -1,0 +1,28 @@
+<!--code addapted from Medium post on how to create a chat client
+ https://medium.com/@Stephanbv/elixir-phoenix-build-a-simple-chat-room-7f20ee8e8f9c-->
+<div class="chat container" id="chat">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card chat-room">
+        <div class="card-header">
+          Your Matches
+        </div>
+        <div class="card-body card-users" id="your-matches">
+          <!--put in matches once we have a table-->
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="card chat-room">
+        <div class="card-header">
+          Hello <%= @current_user.name %>
+        </div>
+        <div id="chat-messages" class="card-body card-messages">
+        </div>
+        <input type="text" id="message-input" class="form-control"
+                                              placeholder="Start chatting...">
+      </div>
+    </div>
+  </div>
+</div
+

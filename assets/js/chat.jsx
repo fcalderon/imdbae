@@ -1,16 +1,7 @@
-// NOTE: The contents of this file will only be executed if
-// you uncomment its entry in "assets/js/app.js".
+//import React from 'react';
+import socket from './socket';
 
-// To use Phoenix channels, the first step is to import Socket
-// and connect at the socket path in "lib/web/endpoint.ex":
-
-// adapted from Medium post on how to create chat client by StephanBV // https://medium.com/@Stephanbv/elixir-phoenix-build-a-simple-chat-room-7f20ee8e8f9c
-import {Socket} from "phoenix"
-
-let socket = new Socket("/socket", {params: {token: window.userToken}})
-
-socket.connect()
-
+export default function start_chat(chat) {
     let channel = socket.channel("chats:1", {});
     let message = $('#message-input');
     let name = "name"; 
@@ -32,18 +23,12 @@ socket.connect()
                              ${payload.message}</br>`;
         
     chatMessages.appendChild(temp);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+    chatMessages.scrollTop = chattMessages.scrollHeight;
     });
 
 
     channel.join()
         .receive("ok", resp => { console.log("Joined successfully", resp)} )
         .receive("error", resp => { console.log("Unable to join", resp) });
+}
 
-// Now that you are connected, you can join channels with a topic:
-//let channel = socket.channel("topic:subtopic", {})
-//channel.join()
-//  .receive("ok", resp => { console.log("Joined successfully", resp) })
-//  .receive("error", resp => { console.log("Unable to join", resp) })
-
-export default socket

@@ -18,4 +18,21 @@ import "phoenix_html"
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
-// import socket from "./socket"
+import socket from "./socket"
+import start_chat from "./chat"
+
+//might not need this game
+function chat_init(chat) {
+    console.log("Join init");
+    //start_chat(chat);
+}
+
+
+function init() {
+    let chat = document.getElementById('chat');
+    if(chat) {
+        chat_init(chat);
+    }
+}
+
+$(init);
