@@ -23,4 +23,3 @@ defmodule ImdbaeWeb.AuthController do
     end
   end
 end
-
