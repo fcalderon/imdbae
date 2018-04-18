@@ -6,6 +6,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {Login} from "./auth/login";
 import {authService} from "./auth/service/auth.service";
 import {Movies} from "./movies/movies-page";
+import {tmdbApi} from "./movies/tmdb-api.service";
 
 export class IMDbae extends React.Component {
   constructor(){
@@ -16,7 +17,8 @@ export class IMDbae extends React.Component {
     }
     this.state = {
       currentUser: currentUser,
-      credentials: {}
+      credentials: {},
+      movies: []
     };
   }
 
@@ -53,6 +55,17 @@ export class IMDbae extends React.Component {
       });
   }
 
+  getMovies() {
+    if (this.state.movies.length === 0) {
+      tmdbApi.discover()
+        .then(movies => {
+          console.log('Got movies', movies);
+          this.setState(Object.assign({}, this.state, {movies: movies.results}))
+        })
+        .catch(err => console.error('error getting movies', err))
+    }
+  }
+
   render() {
     return (<Router>
       <div>
@@ -61,7 +74,10 @@ export class IMDbae extends React.Component {
         }}/>
         <div className={'container mt-4'}>
           <Route path={'/'} exact={true} render={(props) => <h1>You are home!</h1>}/>
-          <Route path={'/movies'} exact={true} render={(props) => <Movies/>}/>
+          <Route path={'/movies'} exact={true} render={(props) => {
+            this.getMovies();
+            return <Movies movies={this.state.movies || []}/>
+          }}/>
           <Route path={'/login'} exact={true}
                  render={(props) => <Login onChange={(formField) => {
                    this.handleOnChange(formField)

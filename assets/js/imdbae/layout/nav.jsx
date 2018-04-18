@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 
 export const Nav = (props) => {
   return (<nav className="navbar navbar-expand-lg">
@@ -12,6 +13,9 @@ export const Nav = (props) => {
       <ul className={'navbar-nav mr-auto'}>
         <li className={'nav-item'}>
           <a className={'nav-link'} href="/">Home</a>
+        </li>
+        <li className={'nav-item'}>
+          <Link className={'nav-link'} to="/movies">Movies</Link>
         </li>
       </ul>
       {
