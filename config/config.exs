@@ -25,3 +25,5 @@ config :logger, :console,
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
+
+config :imdbae, app_salt: "ffrJBykjhg!cqv+{qm*>D_]2!K%_BiZX,GqeOllkuhkl"
