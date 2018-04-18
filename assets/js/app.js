@@ -12,14 +12,14 @@
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
 import "phoenix_html"
-
+import React from 'react';
+import * as ReactDOM from 'react-dom';
 // Import local files
 //
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
-import socket from "./socket"
-import start_chat from "./chat"
+import {imdbae_init} from "./imdbae/imdbae";
 
 //might not need this game
 function chat_init(chat) {
@@ -29,10 +29,12 @@ function chat_init(chat) {
 
 
 function init() {
-    let chat = document.getElementById('chat');
-    if(chat) {
-        chat_init(chat);
-    }
+    // TODO
+    // let chat = document.getElementById('chat');
+    // if(chat) {
+    //     chat_init(chat);
+    // }
+    imdbae_init();
 }
 
 $(init);
