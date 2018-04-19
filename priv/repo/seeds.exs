@@ -13,20 +13,35 @@ defmodule Seeds do
   alias Imdbae.Repo
   alias Imdbae.Accounts.User
   alias Imdbae.Social.Match
+  alias Imdbae.Usermovies.Usermovie
 
   def run do
     p = Comeonin.Argon2.hashpwsalt("thisisnotacommonpassword")
 
+    Repo.delete_all(Usermovie)
     Repo.delete_all(User)
-    Repo.insert!(%User{email: "anna@gmail.com", name: "anna", password_hash: p})
-    Repo.insert!(%User{email: "betty@gmail.com", name: "betty", password_hash: p})
-    Repo.insert!(%User{email: "candace@gmail.com", name: "candace", password_hash: p})
-    Repo.insert!(%User{email: "devin@gmail.com", name: "devin", password_hash: p})
+
+    u1 = Repo.insert!(%User{email: "anna@gmail.com", name: "anna", password_hash: p})
+    u2 = Repo.insert!(%User{email: "betty@gmail.com", name: "betty", password_hash: p})
+    u3 = Repo.insert!(%User{email: "candace@gmail.com", name: "candace", password_hash: p})
+    u4 = Repo.insert!(%User{email: "devin@gmail.com", name: "devin", password_hash: p})
 
     Repo.delete_all(Match)
     Repo.insert!(%Match{email1: "anna@gmail.com", email2: "betty@gmail.com"})
     Repo.insert!(%Match{email1: "betty@gmail.com", email2: "candace@gmail.com"})
     Repo.insert!(%Match{email1: "anna@gmail.com", email2: "candace@gmail.com"})
+
+
+
+    Repo.insert!(%Usermovie{user_id: u1.id, movie_id: 284054, title: "Black Panther"})
+    Repo.insert!(%Usermovie{user_id: u1.id, movie_id: 27205, title: "Inception"})
+    Repo.insert!(%Usermovie{user_id: u1.id, movie_id: 640, title: "Catch Me if You Can"})
+    Repo.insert!(%Usermovie{user_id: u1.id, movie_id: 244786, title: "Whiplash"})
+
+    Repo.insert!(%Usermovie{user_id: u2.id, movie_id: 284054, title: "Black Panther"})
+    Repo.insert!(%Usermovie{user_id: u2.id, movie_id: 27205, title: "Inception"})
+    Repo.insert!(%Usermovie{user_id: u2.id, movie_id: 640, title: "Catch Me if You Can"})
+    Repo.insert!(%Usermovie{user_id: u2.id, movie_id: 244786, title: "Whiplash"})
 
   end
 end

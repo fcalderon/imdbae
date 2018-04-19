@@ -24,6 +24,11 @@ export const Nav = (props) => {
           (<div>
             <ul className={'navbar-nav mr-auto'}>
               <li className={'nav-item'}>
+                <Link className={'nav-link'} to={'/myMovies'}>
+                  My Movies
+                </Link>
+              </li>
+              <li className={'nav-item'}>
                 <a className={'nav-link'}>
                   {props.currentUser.name}
                 </a>

@@ -26,9 +26,13 @@
     overflow-y: scroll;
 }
 
+.imdbae-container {
+  overflow-y: hidden;
+}
+
 
 footer {
-	position: fixed;
+  //position: fixed;
 	left: 0;
 	bottom: 0;
 	padding-left: 20px;

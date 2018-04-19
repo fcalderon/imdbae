@@ -9,20 +9,28 @@ import {Movies} from "./movies/movies-page";
 import {tmdbApi} from "./movies/tmdb-api.service";
 import {Registration} from "./auth/registration";
 import {UserService} from "./user/service/user.service";
+import {MovieHandles} from "./movies/movie-handles";
+import {MyMoviesPage} from "./movies/my-movies-page";
+import {UserMovieService} from "./movies/service/user-movies.service";
+import {debounceEvent} from "./util/helpers";
 
+const DEFAULT_STATE = {
+  currentUser: undefined,
+  credentials: {},
+  registrationFormData: {},
+  movies: []
+};
 export class IMDbae extends React.Component {
+
   constructor(){
     super();
     let currentUser = undefined;
+
     if (authService.isUserLoggedIn()) {
       currentUser = authService.getCachedCurrentUser();
     }
-    this.state = {
-      currentUser: currentUser,
-      credentials: {},
-      registrationFormData: {},
-      movies: []
-    };
+
+    this.state = Object.assign({}, DEFAULT_STATE, {currentUser: currentUser})
   }
 
   handleOnChange(formField) {
@@ -68,6 +76,28 @@ export class IMDbae extends React.Component {
         })
         .catch(err => console.error('error getting movies', err))
     }
+  }
+
+  getUsermovies() {
+    if (!this.state.likedMovies && !!this.state.currentUser) {
+      UserMovieService
+        .getAll(this.state.currentUser.id)
+        .then(res => this.setState(Object.assign({}, this.state, {likedMovies: res.data})))
+        .catch(err => console.error('Error getting user movies', err));
+    }
+  }
+
+  handleOnSearchQueryChanged(query) {
+    if (query === undefined || query.length === 0) {
+      this.getMovies();
+      return;
+    }
+    tmdbApi.search(query)
+      .then(movies => {
+        console.log('Got movies', movies);
+        this.setState(Object.assign({}, this.state, {movies: movies.results}))
+      })
+      .catch(err => console.error('error getting movies', err))
   }
 
   handleRegister(props) {
@@ -117,14 +147,30 @@ export class IMDbae extends React.Component {
           <Route path={'/'} exact={true} render={(props) => <h1>You are home!</h1>}/>
           <Route path={'/movies'} exact={true} render={(props) => {
             this.getMovies();
-            return <Movies movies={this.state.movies || []}/>
+            this.getUsermovies();
+            return <Movies movies={this.state.movies || []}
+                           likedMovies={this.state.likedMovies || []}
+                           hideLike={!this.state.currentUser}
+                           handleOnSearchQueryChanged={debounceEvent((q) => {
+                             this.handleOnSearchQueryChanged(q)
+                           }, 500)}
+                           handleLikeClicked={(movie) => MovieHandles.handleLikeClicked(this.state.currentUser.id,
+                             movie, this.state, this)}/>
+          }}/>
+          <Route path={'/myMovies'} exact={true} render={(props) => {
+            this.getUsermovies();
+            return <MyMoviesPage likedMovies={this.state.likedMovies || []}
+                                 handleUnLikeMovieClicked={(movie) => MovieHandles.handleUnLikeMovieClicked(movie.id, this.state, this)}/>
           }}/>
           <Route path={'/login'} exact={true}
-                 render={(props) => <Login onChange={(formField) => {
-                   this.handleOnChange(formField)
-                 }}
-                                           handleLogin={() => this.handleLogin(props)}/>}/>
-
+                 render={(props) =>
+                   <Login
+                     onChange={
+                       (formField) => {
+                         this.handleOnChange(formField)
+                       }
+                     }
+                     handleLogin={() => this.handleLogin()}/>}/>
           <Route path={'/signUp'} exact={true} render={(props) => {
             return <Registration
               onChange={(formField) => this.handleOnRegisterFormChanged(formField)}
