@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Login = (props) => {
+export const Registration = (props) => {
 	return (<div className={'card'}>
 		<div className={'card-body'}>
 			<h5>Register</h5>
@@ -22,11 +22,16 @@ export const Login = (props) => {
 				</div>
 				<div className={'form-group'}>
 					<label htmlFor={'password-confirmation-field'}>Password Confirmation</label>
-					<label id="password-confirmation-field" className={'form-control'} type="password"
-						onChange={($ev) => { props.onChange({ fieldName: 'password-confirmation', fieldValue: $ev.target.value}) }}/>
+          <input id="password-confirmation-field" className={'form-control'} type="password"
+                 onChange={($ev) => {
+                   props.onChange({fieldName: 'password-confirmation', fieldValue: $ev.target.value})
+                 }}/>
 				</div>
 		</form>
-		<button className={'btn btn-primary'} onClick={() => {props.handleRegistration()}}>Register</button>
+      <button className={'btn btn-primary'} onClick={() => {
+        props.onSubmit()
+      }}>Register
+      </button>
 		</div>
 		</div>);
 };
