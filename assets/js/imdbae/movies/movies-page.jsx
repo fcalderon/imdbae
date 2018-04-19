@@ -1,4 +1,6 @@
 import React from 'react';
+import {MovieListItem} from "./movie-list-item";
+
 
 export const Movies = (props) => {
   return (<div>
@@ -14,11 +16,11 @@ function renderMovies(movies) {
     renderedMovies.push(renderMovie(movies[i]));
   }
 
-  return <ul>
+  return <div>
     {renderedMovies}
-  </ul>
+  </div>
 }
 
 function renderMovie(movie) {
-  return <li key={movie.id}>{movie.title}</li>
+  return <MovieListItem key={movie.id} movie={movie}></MovieListItem>
 }
