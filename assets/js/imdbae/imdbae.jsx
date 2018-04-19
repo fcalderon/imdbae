@@ -7,6 +7,8 @@ import {Login} from "./auth/login";
 import {authService} from "./auth/service/auth.service";
 import {Movies} from "./movies/movies-page";
 import {tmdbApi} from "./movies/tmdb-api.service";
+import {Registration} from "./auth/registration";
+import {UserService} from "./user/service/user.service";
 
 export class IMDbae extends React.Component {
   constructor(){
@@ -18,6 +20,7 @@ export class IMDbae extends React.Component {
     this.state = {
       currentUser: currentUser,
       credentials: {},
+      registrationFormData: {},
       movies: []
     };
   }
@@ -43,12 +46,13 @@ export class IMDbae extends React.Component {
     this.setState(Object.assign({}, this.state, { currentUser: undefined }));
   }
 
-  handleLogin() {
+  handleLogin(props) {
     console.log('Log in clicked', this.state.credentials);
     authService.authenticate(this.state.credentials)
       .then(tokenWrapper => {
         console.log('User authenticated', tokenWrapper);
         this.setState(Object.assign({}, this.state, { currentUser: tokenWrapper.user }));
+        props.history.push('/movies');
       })
       .catch(error => {
         console.error('There was an error authenticating user', error);
@@ -63,6 +67,43 @@ export class IMDbae extends React.Component {
           this.setState(Object.assign({}, this.state, {movies: movies.results}))
         })
         .catch(err => console.error('error getting movies', err))
+    }
+  }
+
+  handleRegister(props) {
+    UserService.create(this.state.registrationFormData)
+      .then(createdUser => {
+        this.setState(Object.assign({}, this.state,
+          {credentials: {email: createdUser.email, password: this.state.registrationFormData.password}}));
+        this.handleLogin(props);
+      })
+      .catch(err => {
+        console.log('Error registering user', err);
+        // TODO handle errors, feedback to user
+      })
+  }
+
+  handleOnRegisterFormChanged(formField) {
+    console.log('Hanlde on change', formField);
+    switch (formField.fieldName) {
+      case 'email':
+        this.setState(Object.assign({}, this.state, Object.assign(this.state.registrationFormData,
+          {email: formField.fieldValue})));
+        console.log(this.state);
+        break;
+      case 'name':
+        this.setState(Object.assign({}, this.state, Object.assign(this.state.registrationFormData,
+          {name: formField.fieldValue})));
+        console.log(this.state);
+        break;
+      case 'password':
+        this.setState(Object.assign({}, this.state, Object.assign(this.state.registrationFormData,
+          {password: formField.fieldValue})));
+        break;
+      case 'password-confirmation':
+        this.setState(Object.assign({}, this.state, Object.assign(this.state.registrationFormData,
+          {password_confirmation: formField.fieldValue})));
+        break;
     }
   }
 
@@ -82,7 +123,13 @@ export class IMDbae extends React.Component {
                  render={(props) => <Login onChange={(formField) => {
                    this.handleOnChange(formField)
                  }}
-                                           handleLogin={() => this.handleLogin()}/>}/>
+                                           handleLogin={() => this.handleLogin(props)}/>}/>
+
+          <Route path={'/signUp'} exact={true} render={(props) => {
+            return <Registration
+              onChange={(formField) => this.handleOnRegisterFormChanged(formField)}
+              onSubmit={() => this.handleRegister(props)}/>
+          }}/>
         </div>
         <Footer/>
       </div>
