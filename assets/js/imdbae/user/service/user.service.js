@@ -5,6 +5,7 @@ const USER_PATH = API_URL + '/users';
 
 function create(user) {
   return new Promise((resolve, reject) => {
+	console.log("called create");
     CRUD.post(USER_PATH, {user: user}, false)
       .then(createdUser => {
         console.log('User created', createdUser);

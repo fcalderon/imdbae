@@ -71,7 +71,11 @@ function post(url, data, secured) {
       .then(function(res) {
         if (res.ok || res.status === 201) {
           resolve(res.json());
-        } else {
+        }
+		else if (res.status === 422) {
+			console.log("422 Response", res);
+		}
+		  else {
           console.log(res);
           reject(getAppropriateError(res.status));
         }

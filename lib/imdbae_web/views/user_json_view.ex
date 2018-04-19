@@ -24,10 +24,20 @@ defmodule ImdbaeWeb.UserJsonView do
     }
   end
 
-
-  def render("error.json", %{message: message}) do
+  #adapted from Serafeim Maroulis Phoenix API with React Native part 2
+  def render("error.json", %{changeset: changeset}) do
+    errors = Enum.map(changeset.errors, fn {attr, error} ->
+      %{"#{attr}": format_error(error)}
+    end)
     %{
-      error: message
+      errors: errors
     }
+    IO.inspect(errors)
+  end
+
+  defp format_error({message, values}) do
+    Enum.reduce values, message, fn {k, v}, acc ->
+      String.replace(acc, "%{#{k}}", to_string(v))
+    end
   end
 end

@@ -101,6 +101,7 @@ export class IMDbae extends React.Component {
   }
 
   handleRegister(props) {
+	  console.log("handling register");
     UserService.create(this.state.registrationFormData)
       .then(createdUser => {
         this.setState(Object.assign({}, this.state,

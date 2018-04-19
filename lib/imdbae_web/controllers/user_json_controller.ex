@@ -16,12 +16,28 @@ defmodule ImdbaeWeb.UserJsonController do
     end
   end
 
+  """
   def create(conn, %{"user" => user_params}) do
     with {:ok, %User{} = user} <- Accounts.create_user(user_params) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", user_path(conn, :show, user))
       |> render("show.json", user: user)
+    end
+  end
+  """
+
+  def create(conn, %{"user" => user_params}) do
+    case Accounts.create_user(user_params) do
+      {:ok, %User{} = user} ->
+        IO.inspect(user)
+        conn
+          |> put_status(:created)
+          |> put_resp_header("location", user_path(conn, :show, user))
+          |> render("show.json", user: user)
+      {:error, changeset} ->
+        IO.puts "Hit error in create"
+        render(conn |> put_status(422), "error.json", changeset: changeset)
     end
   end
 
