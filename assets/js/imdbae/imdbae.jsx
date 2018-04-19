@@ -7,6 +7,7 @@ import {Login} from "./auth/login";
 import {authService} from "./auth/service/auth.service";
 import {Movies} from "./movies/movies-page";
 import {tmdbApi} from "./movies/tmdb-api.service";
+import {ChatPage} from "./chat/chat-page";
 
 export class IMDbae extends React.Component {
   constructor(){
@@ -83,6 +84,7 @@ export class IMDbae extends React.Component {
                    this.handleOnChange(formField)
                  }}
                                            handleLogin={() => this.handleLogin()}/>}/>
+          <Route render={() => <ChatPage/>}/>
         </div>
         <Footer/>
       </div>

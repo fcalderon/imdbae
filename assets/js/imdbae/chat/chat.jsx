@@ -1,7 +1,7 @@
 //import React from 'react';
 import socket from '../../socket';
 
-export default function start_chat(chat) {
+export default function start_chat() {
     let channel = socket.channel("chats:1", {});
     let message = $('#message-input');
     let name = "name"; 
@@ -10,6 +10,7 @@ export default function start_chat(chat) {
     message.focus();
 
     message.on('keypress', (event) => {
+      console.log('key pressed');
         if(event.keyCode == 13) {
             channel.push('message:new', { message: message.val(),
                                           user: name });

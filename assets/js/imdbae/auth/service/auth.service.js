@@ -52,6 +52,10 @@ function getCachedCurrentUser() {
   return null;
 }
 
+function getToken() {
+  return localStorage.getItem(AUTH_TOKEN_KEY);
+}
+
 function logOut() {
   localStorage.removeItem(CURRENT_USER_KEY);
   localStorage.removeItem(AUTH_TOKEN_KEY);
@@ -62,5 +66,6 @@ export const authService = {
   getCurrentUser,
   isUserLoggedIn,
   getCachedCurrentUser,
+  getToken,
   logOut
 };

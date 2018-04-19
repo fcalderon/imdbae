@@ -6,10 +6,11 @@
 
 // adapted from Medium post on how to create chat client by StephanBV // https://medium.com/@Stephanbv/elixir-phoenix-build-a-simple-chat-room-7f20ee8e8f9c
 import {Socket} from "phoenix"
+import {authService} from "./imdbae/auth/service/auth.service";
 
-let socket = new Socket("/socket", {params: {token: window.userToken}})
+let socket = new Socket("/socket", {params: {token: authService.getToken()}});
 
-socket.connect()
+socket.connect();
 
     let channel = socket.channel("chats:1", {});
     let message = $('#message-input');
