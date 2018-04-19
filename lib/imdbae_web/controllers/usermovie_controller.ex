@@ -26,7 +26,7 @@ defmodule ImdbaeWeb.UsermovieController do
 
   def create(conn, %{"usermovie" => usermovie_params}) do
     if (Map.has_key?(Map.get(conn, :assigns), :authenticated_user_id)) do
-
+      # TODO when a usermovie is created, find and update all matches associated with the added usermovie
       with {:ok, %Usermovie{} = usermovie} <- Usermovies.create_usermovie(usermovie_params) do
         conn
         |> put_status(:created)
@@ -63,6 +63,7 @@ defmodule ImdbaeWeb.UsermovieController do
   end
 
   def delete(conn, %{"id" => id}) do
+    # TODO when a usermovie is deleted, find and update/remove all matches associated with the deleleted usermovie
     if (Map.has_key?(Map.get(conn, :assigns), :authenticated_user_id)) do
       usermovie = Usermovies.get_usermovie!(id)
       with {:ok, %Usermovie{}} <- Usermovies.delete_usermovie(usermovie) do

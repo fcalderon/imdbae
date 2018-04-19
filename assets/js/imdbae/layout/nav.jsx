@@ -12,7 +12,7 @@ export const Nav = (props) => {
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className={'navbar-nav mr-auto'}>
         <li className={'nav-item'}>
-          <a className={'nav-link'} href="/">Home</a>
+          <Link className={'nav-link'} to="/">Home</Link>
         </li>
         <li className={'nav-item'}>
           <Link className={'nav-link'} to="/movies">Movies</Link>
@@ -44,9 +44,9 @@ export const Nav = (props) => {
           <div>
             <ul className={'navbar-nav mr-auto'}>
               <li className={'nav-item'}>
-                <a className={'nav-link'} href={'/login'}>
+                <Link className={'nav-link'} to={'/login'}>
                   Login
-                </a>
+                </Link>
               </li>
               <li className={'nav-item'}>
                 <Link className={'nav-link'} to={'/signUp'}>
@@ -55,7 +55,6 @@ export const Nav = (props) => {
               </li>
             </ul>
           </div>
-
       }
     </div>
   </nav>)

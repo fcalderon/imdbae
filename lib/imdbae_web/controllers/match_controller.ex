@@ -7,11 +7,14 @@ defmodule ImdbaeWeb.MatchController do
   action_fallback ImdbaeWeb.FallbackController
 
   def index(conn, _params) do
+    # TODO get by first_user_id AND/OR last_user_id
+    # TODO auth
     matches = Social.list_matches()
     render(conn, "index.json", matches: matches)
   end
 
   def create(conn, %{"match" => match_params}) do
+    # TODO auth
     with {:ok, %Match{} = match} <- Social.create_match(match_params) do
       conn
       |> put_status(:created)
@@ -21,11 +24,13 @@ defmodule ImdbaeWeb.MatchController do
   end
 
   def show(conn, %{"id" => id}) do
+    # TODO auth
     match = Social.get_match!(id)
     render(conn, "show.json", match: match)
   end
 
   def update(conn, %{"id" => id, "match" => match_params}) do
+    # TODO auth
     match = Social.get_match!(id)
 
     with {:ok, %Match{} = match} <- Social.update_match(match, match_params) do
@@ -34,6 +39,7 @@ defmodule ImdbaeWeb.MatchController do
   end
 
   def delete(conn, %{"id" => id}) do
+    # TODO auth
     match = Social.get_match!(id)
     with {:ok, %Match{}} <- Social.delete_match(match) do
       send_resp(conn, :no_content, "")
