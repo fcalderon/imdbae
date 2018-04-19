@@ -163,15 +163,24 @@ export class IMDbae extends React.Component {
                                  handleUnLikeMovieClicked={(movie) => MovieHandles.handleUnLikeMovieClicked(movie.id, this.state, this)}/>
           }}/>
           <Route path={'/login'} exact={true}
-                 render={(props) =>
-                   <Login
+                 render={(props) => {
+                   if (this.state.currentUser) {
+                     props.history.push('/');
+                   }
+
+                   return <Login
                      onChange={
                        (formField) => {
                          this.handleOnChange(formField)
                        }
                      }
-                     handleLogin={() => this.handleLogin(props)}/>}/>
+                     handleLogin={() => this.handleLogin(props)}/>
+                 }}/>
           <Route path={'/signUp'} exact={true} render={(props) => {
+            if (this.state.currentUser) {
+              props.history.push('/');
+            }
+
             return <Registration
               onChange={(formField) => this.handleOnRegisterFormChanged(formField)}
               onSubmit={() => this.handleRegister(props)}/>
