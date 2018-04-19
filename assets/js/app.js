@@ -38,3 +38,5 @@ function init() {
 }
 
 $(init);
+
+require("bootstrap");
