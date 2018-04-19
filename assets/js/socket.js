@@ -7,8 +7,9 @@
 import {Socket} from "phoenix"
 
 window.userToken = localStorage.getItem("__AUTH_TOKEN");
-let socket = new Socket("/socket", {props: {token: window.userToken}})
+let socket = new Socket("/socket", {params: {token: localStorage.getItem("__AUTH_TOKEN")}});
 
-socket.connect()
+
+socket.connect();
 
 export default socket
