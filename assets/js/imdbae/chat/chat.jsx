@@ -1,7 +1,33 @@
-//import React from 'react';
+import React from 'react';
 import socket from '../../socket';
+import {Matchlist} from './matchlist';
+import {Chatbox} from './chatbox';
 
-export default function start_chat(chat) {
+export const Chat = (props) => {
+    let channel = socket.channel("chats:1", {});
+    channel.join()
+        .receive("ok", resp => { console.log("Joined successfully", resp)} )
+        .receive("error", resp => { console.log("Unable to join", resp) });
+
+    return <div className={'row'}>
+             <div className={'col-md-3'}>
+               {renderMatchlist(props.currentUser)}
+             </div>
+             <div className={'col-md-9'}>
+               {renderChatbox(props.currentUser)}
+             </div>
+           </div>
+};
+
+function renderMatchlist(user) {
+    return <Matchlist key={user.id} user={user}></Matchlist>
+}
+
+function renderChatbox(user) {
+    return <Chatbox key={user.id} user={user}></Chatbox>
+}
+
+/**
     let channel = socket.channel("chats:1", {});
     let message = $('#message-input');
     let name = "name"; 
@@ -30,5 +56,4 @@ export default function start_chat(chat) {
     channel.join()
         .receive("ok", resp => { console.log("Joined successfully", resp)} )
         .receive("error", resp => { console.log("Unable to join", resp) });
-}
-
+        **/
