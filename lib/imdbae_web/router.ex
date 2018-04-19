@@ -33,6 +33,7 @@ defmodule ImdbaeWeb.Router do
     get "/", PageController, :index
     get "/chat", PageController, :chat
     get "/movies", PageController, :movies
+    get "/myMovies", PageController, :movies
     get "/login", PageController, :movies
     get "/signUp", PageController, :movies
 
@@ -49,7 +50,8 @@ defmodule ImdbaeWeb.Router do
      resources "/matches", MatchController, except: [:new, :edit]
      resources "/users", UserJsonController, except: [:new, :edit]
      resources "/auth", AuthController
-   end
+     resources "/usermovies", UsermovieController
+  end
 
   def authorize_user(conn, params) do
     authorization_header_value = get_req_header(conn, "authorization")

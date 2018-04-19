@@ -15,7 +15,15 @@ export const MovieListItem = (props) => {
 
     </div>
     <div className={'card-footer'}>
-      <button className={'btn btn-success'}>Like!</button>
+      {
+        props.isLiked
+          ?
+          <span>You liked this movie!</span>
+          :
+          <button className={'btn btn-success'} onClick={() => {
+            props.handleLikeClicked()
+          }} hidden={props.hideLike}>Like!</button>
+      }
     </div>
   </div>
 };
