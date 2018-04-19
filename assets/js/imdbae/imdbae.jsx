@@ -6,7 +6,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {Login} from "./auth/login";
 import {authService} from "./auth/service/auth.service";
 import {Movies} from "./movies/movies-page";
-import {tmdbApi} from "./movies/tmdb-api.service";
+import {tmdbApi} from "./movies/service/tmdb-api.service";
 import {Registration} from "./auth/registration";
 import {UserService} from "./user/service/user.service";
 import {MovieHandles} from "./movies/movie-handles";
@@ -143,7 +143,7 @@ export class IMDbae extends React.Component {
         <Nav currentUser={this.state.currentUser} handleLogOut={() => {
           this.handleLogOut()
         }}/>
-        <div className={'container mt-4'}>
+        <div className={'container mt-4 pb-5 mb-5'}>
           <Route path={'/'} exact={true} render={(props) => <h1>You are home!</h1>}/>
           <Route path={'/movies'} exact={true} render={(props) => {
             this.getMovies();
@@ -170,7 +170,7 @@ export class IMDbae extends React.Component {
                          this.handleOnChange(formField)
                        }
                      }
-                     handleLogin={() => this.handleLogin()}/>}/>
+                     handleLogin={() => this.handleLogin(props)}/>}/>
           <Route path={'/signUp'} exact={true} render={(props) => {
             return <Registration
               onChange={(formField) => this.handleOnRegisterFormChanged(formField)}
