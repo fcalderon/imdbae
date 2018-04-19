@@ -24,20 +24,15 @@ defmodule ImdbaeWeb.UserJsonView do
     }
   end
 
-  #adapted from Serafeim Maroulis Phoenix API with React Native part 2
+  def translate_errors(changeset) do
+    Ecto.Changeset.traverse_errors(changeset, &translate_error/1)
+  end
+
   def render("error.json", %{changeset: changeset}) do
-    errors = Enum.map(changeset.errors, fn {attr, error} ->
-      %{"#{attr}": format_error(error)}
-    end)
-    %{
-      errors: errors
-    }
+    # When encoded, the changeset returns its errors
+    # as a JSON object. So we just pass it forward.
+    errors = %{errors: translate_errors(changeset)}
     IO.inspect(errors)
   end
 
-  defp format_error({message, values}) do
-    Enum.reduce values, message, fn {k, v}, acc ->
-      String.replace(acc, "%{#{k}}", to_string(v))
-    end
-  end
 end

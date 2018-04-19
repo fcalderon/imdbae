@@ -68,7 +68,7 @@ function post(url, data, secured) {
       body: JSON.stringify(data),
       headers: headers,
     })
-      .then(function(res) {
+      .then((res) => {
         if (res.ok || res.status === 201) {
           resolve(res.json());
         }
