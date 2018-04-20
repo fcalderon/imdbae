@@ -23,6 +23,8 @@ defmodule ImdbaeWeb.MatchController do
         matches = Social.list_matches()
       end
 
+      IO.inspect(matches)
+
       render(conn, "index.json", matches: matches)
     else
       conn

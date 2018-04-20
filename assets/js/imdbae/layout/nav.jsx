@@ -31,6 +31,15 @@ export const Nav = connect(mapStateToProps, mapDispatchToProps)((props) => {
         <li className={'nav-item'}>
           <Link className={'nav-link'} to="/movies">Movies</Link>
         </li>
+        {
+          props.currentUser
+            ?
+            <li className={'nav-item'}>
+              <Link className={'nav-link'} to="/matches">Matches</Link>
+            </li>
+            :
+            <div/>
+        }
       </ul>
       {
         props.currentUser

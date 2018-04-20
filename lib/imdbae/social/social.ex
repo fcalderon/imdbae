@@ -23,10 +23,14 @@ defmodule Imdbae.Social do
 
   def list_matches_by_first_user_id(userId) do
     Repo.all(from match in Match, where: match.first_user_id == ^userId)
+    |> Repo.preload(:first_user)
+    |> Repo.preload(:second_user)
   end
 
   def list_matches_by_first_and_second_user_id(firstUserId, secondUserId) do
     Repo.all(from match in Match, where: match.first_user_id == ^firstUserId and match.second_user_id == ^secondUserId)
+    |> Repo.preload(:first_user)
+    |> Repo.preload(:second_user)
   end
 
   def list_matches_by_first_user_id_and_movie_id(userId, movieId) do
@@ -35,6 +39,7 @@ defmodule Imdbae.Social do
       where: match.matched_on_movie_id == ^movieId and (match.first_user_id == ^userId
                                                         or match.second_user_id == ^userId)
     )
+    |> Repo.preload(:first_user, :second_user)
   end
 
   @doc """

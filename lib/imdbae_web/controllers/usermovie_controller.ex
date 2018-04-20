@@ -48,31 +48,33 @@ defmodule ImdbaeWeb.UsermovieController do
   end
 
   defp save_match(usermovie, other_usermovie) do
-    # Save the match for both sides
+    if (usermovie.user_id != other_usermovie.user_id) do
+      # Save the match for both sides
 
-    Imdbae.Social.create_match(
-      %{
-        first_user_id: usermovie.user_id,
-        second_user_id: other_usermovie.user_id,
-        matched_on_first_usermovie_id: usermovie.id,
-        matched_on_second_usermovie_id: other_usermovie.id,
-        matched_on_movie_id: usermovie.movie_id,
-        matched_on_movie_title: usermovie.title,
-        matched_on_movie_poster_url: usermovie.poster_url
-      }
-    )
+      Imdbae.Social.create_match(
+        %{
+          first_user_id: usermovie.user_id,
+          second_user_id: other_usermovie.user_id,
+          matched_on_first_usermovie_id: usermovie.id,
+          matched_on_second_usermovie_id: other_usermovie.id,
+          matched_on_movie_id: usermovie.movie_id,
+          matched_on_movie_title: usermovie.title,
+          matched_on_movie_poster_url: usermovie.poster_url
+        }
+      )
 
-    Imdbae.Social.create_match(
-      %{
-        first_user_id: other_usermovie.user_id,
-        second_user_id: usermovie.user_id,
-        matched_on_first_usermovie_id: other_usermovie.id,
-        matched_on_second_usermovie_id: usermovie.id,
-        matched_on_movie_id: usermovie.movie_id,
-        matched_on_movie_title: usermovie.title,
-        matched_on_movie_poster_url: usermovie.poster_url
-      }
-    )
+      Imdbae.Social.create_match(
+        %{
+          first_user_id: other_usermovie.user_id,
+          second_user_id: usermovie.user_id,
+          matched_on_first_usermovie_id: other_usermovie.id,
+          matched_on_second_usermovie_id: usermovie.id,
+          matched_on_movie_id: usermovie.movie_id,
+          matched_on_movie_title: usermovie.title,
+          matched_on_movie_poster_url: usermovie.poster_url
+        }
+      )
+    end
   end
 
   def remove_outdated_matches(removedUsermovie) do

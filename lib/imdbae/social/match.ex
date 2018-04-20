@@ -1,11 +1,15 @@
 defmodule Imdbae.Social.Match do
   use Ecto.Schema
   import Ecto.Changeset
-
+  alias Imdbae.Accounts.User
 
   schema "matches" do
     field :first_user_id, :integer
     field :second_user_id, :integer
+
+    belongs_to :first_user, User, references: :id, define_field: false
+    belongs_to :second_user, User, references: :id, define_field: false
+
     field :matched_on_first_usermovie_id, :integer
     field :matched_on_second_usermovie_id, :integer
     field :matched_on_movie_id, :integer

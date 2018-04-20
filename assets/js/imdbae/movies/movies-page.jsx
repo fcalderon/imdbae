@@ -44,7 +44,7 @@ class MoviesComponent extends React.Component {
             {this.props.movies.map(movie => <MovieListItem key={movie.id}
                                                            hideLike={!this.props.currentUser}
                                                            movie={movie}
-                                                           handleLikeClicked={() => props.likeMovie(this.props.currentUser.id, movie)}
+                                                           handleLikeClicked={() => this.props.likeMovie(this.props.currentUser.id, movie)}
                                                            isLiked={!!this.props.currentUser && isLiked(movie.id, this.props.userMovies)}/>)}
           </div>
       }
