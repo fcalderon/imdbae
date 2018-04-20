@@ -18,7 +18,6 @@ defmodule ImdbaeWeb.MatchView do
       matched_on_second_usermovie_id: match.matched_on_second_usermovie_id,
       matched_on_movie_id: match.matched_on_movie_id,
       matched_on_movie_title: match.matched_on_movie_title,
-      matched_on_movie_title: match.matched_on_movie_title,
       matched_on_movie_poster_url: match.matched_on_movie_poster_url
     }
   end

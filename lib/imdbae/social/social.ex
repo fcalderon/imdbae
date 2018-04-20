@@ -21,6 +21,22 @@ defmodule Imdbae.Social do
     Repo.all(Match)
   end
 
+  def list_matches_by_first_user_id(userId) do
+    Repo.all(from match in Match, where: match.first_user_id == ^userId)
+  end
+
+  def list_matches_by_first_and_second_user_id(firstUserId, secondUserId) do
+    Repo.all(from match in Match, where: match.first_user_id == ^firstUserId and match.second_user_id == ^secondUserId)
+  end
+
+  def list_matches_by_first_user_id_and_movie_id(userId, movieId) do
+    Repo.all(
+      from match in Match,
+      where: match.matched_on_movie_id == ^movieId and (match.first_user_id == ^userId
+                                                        or match.second_user_id == ^userId)
+    )
+  end
+
   @doc """
   Gets a single match.
 
