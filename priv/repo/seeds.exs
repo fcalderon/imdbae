@@ -18,6 +18,7 @@ defmodule Seeds do
   def run do
     p = Comeonin.Argon2.hashpwsalt("thisisnotacommonpassword")
 
+    Repo.delete_all(Match)
     Repo.delete_all(Usermovie)
     Repo.delete_all(User)
 
@@ -36,8 +37,6 @@ defmodule Seeds do
     u2M3 = Repo.insert!(%Usermovie{user_id: u2.id, movie_id: 640, title: "Catch Me if You Can"})
     u2M4 = Repo.insert!(%Usermovie{user_id: u2.id, movie_id: 244786, title: "Whiplash"})
 
-
-    Repo.delete_all(Match)
     Repo.insert!(
       %Match{
         first_user_id: u1.id,

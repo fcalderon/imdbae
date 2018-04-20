@@ -34,6 +34,7 @@ defmodule ImdbaeWeb.Router do
     get "/chat", PageController, :chat
     get "/movies", PageController, :movies
     get "/myMovies", PageController, :movies
+    get "/matches", PageController, :movies
     get "/login", PageController, :movies
     get "/signUp", PageController, :movies
 

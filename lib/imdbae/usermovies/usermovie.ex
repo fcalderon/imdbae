@@ -1,4 +1,4 @@
-defmodule Imdbae.Usermovies.Usermovie do
+defmodule  Imdbae.Usermovies.Usermovie do
   use Ecto.Schema
   import Ecto.Changeset
 
