@@ -50,12 +50,17 @@ exports.config = {
       presets: ['env', 'react'],
       plugins: ["transform-object-rest-spread"]
     },
-	 sass: {
-		 options: {
-		   includePaths: ["node_modules/bootstrap/scss"],
-		   precision: 8,
-		}
-	 }
+    sass: {
+      options: {
+        includePaths: ["node_modules/bootstrap/scss", "node_modules/font-awesome/scss"],
+        precision: 8,
+      }
+    },
+    copycat: {
+      "fonts": [
+        "node_modules/font-awesome/fonts"
+      ] // copy these files into priv/static/fonts/
+    }
   },
 
   modules: {

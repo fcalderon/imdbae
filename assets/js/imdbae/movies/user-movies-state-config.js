@@ -59,14 +59,17 @@ export const userMoviesDataService = () => next => action => {
 const DEFAULT_USER_MOVIES_STATE = {
   userMovies: {
     data: [],
-    error: undefined
+    error: undefined,
+    loading: false
   }
 };
 
 export function userMoviesReducer(state = DEFAULT_USER_MOVIES_STATE, action) {
   switch (action.type) {
+    case UserMoviesActionTypes.GetAll:
+      return {...state, userMovies: {...state.userMovies, loading: true}};
     case UserMoviesActionTypes.GetAllDone:
-      return Object.assign({}, state, {userMovies: action.payload});
+      return {...state, userMovies: {...action.payload, loading: false}};
     case UserMoviesActionTypes.AddDone:
       return Object.assign({}, state,
         {userMovies: {data: [action.payload.data].concat(state.userMovies.data)}});
@@ -76,7 +79,7 @@ export function userMoviesReducer(state = DEFAULT_USER_MOVIES_STATE, action) {
     case UserMoviesActionTypes.GetAllError:
     case UserMoviesActionTypes.RemoveError:
     case UserMoviesActionTypes.AddError:
-      return Object.assign({}, state, {userMovies: Object.assign({}, state.userMovies, {error: action.payload})});
+      return {...state, userMovies: {...state.userMovies, error: action.payload, loading: false}};
     case UserMoviesActionTypes.Reset:
       return {...DEFAULT_USER_MOVIES_STATE};
     default:

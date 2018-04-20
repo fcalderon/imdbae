@@ -4,6 +4,7 @@ import {MoviesActionCreator} from "./state-config";
 import {connect} from "react-redux";
 import {UserMoviesActionCreator} from "./user-movies-state-config";
 import {debounceEvent} from "../util/helpers";
+import {Spinner} from "../util/spinner";
 
 function isLiked(movieId, userMovies) {
   return userMovies.some((userMovie) => {
@@ -26,19 +27,27 @@ class MoviesComponent extends React.Component {
   render() {
     return (<div>
       <h1>Movies</h1>
-      <div className={'row'}>
-        <div className={'col'}>
-          <div className={'form-group'}>
-            <input className={'form-control'} placeholder={'Search for a movie...'}
-                   onChange={$ev => this.onSearchInputChanged($ev.target.value)}/>
+      {
+        this.props.loading
+          ?
+          <Spinner/>
+          :
+          <div>
+            <div className={'row'}>
+              <div className={'col'}>
+                <div className={'form-group'}>
+                  <input className={'form-control'} placeholder={'Search for a movie...'}
+                         onChange={$ev => this.onSearchInputChanged($ev.target.value)}/>
+                </div>
+              </div>
+            </div>
+            {this.props.movies.map(movie => <MovieListItem key={movie.id}
+                                                           hideLike={!this.props.currentUser}
+                                                           movie={movie}
+                                                           handleLikeClicked={() => props.likeMovie(this.props.currentUser.id, movie)}
+                                                           isLiked={!!this.props.currentUser && isLiked(movie.id, this.props.userMovies)}/>)}
           </div>
-        </div>
-      </div>
-      {this.props.movies.map(movie => <MovieListItem key={movie.id}
-                                                     hideLike={!this.props.currentUser}
-                                                     movie={movie}
-                                                     handleLikeClicked={() => props.likeMovie(this.props.currentUser.id, movie)}
-                                                     isLiked={!!this.props.currentUser && isLiked(movie.id, this.props.userMovies)}/>)}
+      }
     </div>);
   }
 }
@@ -47,7 +56,8 @@ const mapStateToProps = state => {
   return {
     movies: state.movies.movies.results,
     currentUser: state.auth.currentUser,
-    userMovies: state.userMovies.userMovies.data
+    userMovies: state.userMovies.userMovies.data,
+    loading: state.movies.movies.loading
   }
 };
 

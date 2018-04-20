@@ -64,6 +64,7 @@ export const moviesDataService = () => next => action => {
 const DEFAULT_MOVIES_STATE = {
   movies: {
     results: [],
+    loading: false,
     error: undefined
   },
   selected: {
@@ -76,16 +77,18 @@ const DEFAULT_MOVIES_STATE = {
 
 export function moviesReducer(state = DEFAULT_MOVIES_STATE, action) {
   switch (action.type) {
+    case MovieActionTypes.GetAll:
+      return {...state, movies: {...state.movies, loading: true}};
     case MovieActionTypes.GetAllDone:
-      return Object.assign({}, state, {movies: action.payload});
+      return Object.assign({}, state, {movies: action.payload, loading: false});
     case MovieActionTypes.GetOneDone:
-      return Object.assign({}, state, {selected: {result: action.payload}});
+      return Object.assign({}, state, {selected: action.payload, loading: false});
     case MovieActionTypes.UpdateQuery:
       return Object.assign({}, state, {query: action.payload});
     case MovieActionTypes.GetAllError:
-      return Object.assign({}, state, {movies: {error: action.payload}});
+      return Object.assign({}, state, {movies: {error: action.payload, loading: false}});
     case MovieActionTypes.GetOneError:
-      return Object.assign({}, state, {selected: {error: action.payload}});
+      return Object.assign({}, state, {selected: {error: action.payload, loading: false}});
     default:
       return state;
   }
