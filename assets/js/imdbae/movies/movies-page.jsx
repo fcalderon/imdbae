@@ -27,20 +27,20 @@ class MoviesComponent extends React.Component {
   render() {
     return (<div>
       <h1>Movies</h1>
+      <div className={'row'}>
+        <div className={'col'}>
+          <div className={'form-group'}>
+            <input className={'form-control'} placeholder={'Search for a movie...'}
+                   onChange={$ev => this.onSearchInputChanged($ev.target.value)}/>
+          </div>
+        </div>
+      </div>
       {
         this.props.loading
           ?
           <Spinner/>
           :
           <div>
-            <div className={'row'}>
-              <div className={'col'}>
-                <div className={'form-group'}>
-                  <input className={'form-control'} placeholder={'Search for a movie...'}
-                         onChange={$ev => this.onSearchInputChanged($ev.target.value)}/>
-                </div>
-              </div>
-            </div>
             {this.props.movies.map(movie => <MovieListItem key={movie.id}
                                                            hideLike={!this.props.currentUser}
                                                            movie={movie}
