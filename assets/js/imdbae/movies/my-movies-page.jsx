@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {UserMoviesActionTypes} from "./user-movies-state-config";
+import {UncontrolledAlert} from "reactstrap";
 
 class MyMoviesPageComponent extends React.Component {
   componentWillMount() {
@@ -19,19 +20,13 @@ class MyMoviesPageComponent extends React.Component {
             {
               this.props.error
                 ?
-                <div className={'alert alert-danger alert-dismissible fade show'} role="alert">
+                <UncontrolledAlert color={'danger'}>
                   Error loading movies
-                  <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
+                </UncontrolledAlert>
                 :
-                <div className={'alert alert-success alert-dismissible fade show'} role="alert">
+                <UncontrolledAlert color={'success'}>
                   Movies loaded successfully
-                  <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
+                </UncontrolledAlert>
             }
           </div>
         </div>

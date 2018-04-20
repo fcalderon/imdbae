@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {AuthActionCreator} from "./state-config";
 import {Link} from "react-router-dom";
+import {UncontrolledAlert} from "reactstrap";
 
 
 const stateToProps = state => {
@@ -24,12 +25,9 @@ export const Login = connect(stateToProps, dispatchToProps)((props) => {
       {
         props.error
           ?
-          <div className="alert alert-danger alert-dismissible fade show" role="alert">
+          <UncontrolledAlert color={'danger'}>
             {props.error}
-            <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
+          </UncontrolledAlert>
           :
           <div/>
       }
