@@ -11,6 +11,7 @@ import {connect, Provider} from 'react-redux';
 import {Home} from "./layout/home";
 import {MatchesPage} from "./matches/matches-page";
 import {ProfilePage} from "./user/profile-page";
+import {Chat} from "./chat/chat";
 
 class IMDbaeComponent extends React.Component {
   constructor(props) {
@@ -31,6 +32,7 @@ class IMDbaeComponent extends React.Component {
           <Route path={'/myMovies'} exact={true} component={MyMoviesPage}/>
           <Route path={'/matches'} exact={true} component={MatchesPage}/>
           <Route path={'/profile'} exact={true} component={ProfilePage}/>
+          <Route path={'/chat'} exact={true} component={Chat}/>
           <Route path={'/login'} exact={true}
                  render={(props) => {
                    if (this.userLoggedIn()) {
