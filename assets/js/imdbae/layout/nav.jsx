@@ -29,6 +29,9 @@ export const Nav = connect(mapStateToProps, mapDispatchToProps)((props) => {
           <a className={'nav-link'} href="/chat">Chat</a>
         </li>
         <li className={'nav-item'}>
+          <Link className={'nav-link'} to="/chat">Chat</Link>
+        </li>
+        <li className={'nav-item'}>
           <Link className={'nav-link'} to="/movies">Movies</Link>
         </li>
         {
