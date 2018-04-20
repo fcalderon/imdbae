@@ -37,6 +37,7 @@ defmodule ImdbaeWeb.Router do
     get "/matches", PageController, :movies
     get "/login", PageController, :movies
     get "/signUp", PageController, :movies
+    get "/profile", PageController, :movies
 
     resources "/users", UserController
 

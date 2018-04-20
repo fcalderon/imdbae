@@ -6,13 +6,15 @@ import {userMoviesDataService, userMoviesReducer} from "./imdbae/movies/user-mov
 import {AuthDataService, authReducer} from "./imdbae/auth/state-config";
 import throttle from "lodash/throttle";
 import {MatchesDataService, MatchesReducer} from "./imdbae/matches/state-config";
+import {UserDataService, UserReducer} from "./imdbae/user/state-config";
 
 
 const imdbaeReducers = {
   movies: moviesReducer,
   userMovies: userMoviesReducer,
   auth: authReducer,
-  matches: MatchesReducer
+  matches: MatchesReducer,
+  user: UserReducer
 };
 
 function root_reducer(state0, action) {
@@ -25,7 +27,7 @@ function root_reducer(state0, action) {
   return deepFreeze(state1);
 }
 
-const middleware = [moviesDataService, userMoviesDataService, AuthDataService, MatchesDataService];
+const middleware = [moviesDataService, userMoviesDataService, AuthDataService, MatchesDataService, UserDataService];
 
 const persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {};
 
