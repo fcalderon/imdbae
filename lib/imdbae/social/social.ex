@@ -39,7 +39,8 @@ defmodule Imdbae.Social do
       where: match.matched_on_movie_id == ^movieId and (match.first_user_id == ^userId
                                                         or match.second_user_id == ^userId)
     )
-    |> Repo.preload(:first_user, :second_user)
+    |> Repo.preload(:first_user)
+    |> Repo.preload(:second_user)
   end
 
   @doc """
