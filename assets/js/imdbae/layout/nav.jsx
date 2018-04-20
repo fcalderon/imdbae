@@ -26,9 +26,6 @@ export const Nav = connect(mapStateToProps, mapDispatchToProps)((props) => {
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className={'navbar-nav mr-auto'}>
         <li className={'nav-item'}>
-          <a className={'nav-link'} href="/chat">Chat</a>
-        </li>
-        <li className={'nav-item'}>
           <Link className={'nav-link'} to="/chat">Chat</Link>
         </li>
         <li className={'nav-item'}>
