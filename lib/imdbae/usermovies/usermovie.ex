@@ -7,6 +7,7 @@ defmodule Imdbae.Usermovies.Usermovie do
     field :movie_id, :integer
     field :user_id, :id
     field :title, :string
+    field :poster_url, :string
 
     timestamps()
   end
@@ -14,7 +15,7 @@ defmodule Imdbae.Usermovies.Usermovie do
   @doc false
   def changeset(usermovie, attrs) do
     usermovie
-    |> cast(attrs, [:movie_id, :user_id, :title])
+    |> cast(attrs, [:movie_id, :user_id, :title, :poster_url])
     |> validate_required([:movie_id, :user_id, :title])
   end
 end

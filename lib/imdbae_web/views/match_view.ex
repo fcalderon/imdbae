@@ -12,7 +12,13 @@ defmodule ImdbaeWeb.MatchView do
 
   def render("match.json", %{match: match}) do
     %{id: match.id,
-      email1: match.email1,
-      email2: match.email2}
+      first_user_id: match.first_user_id,
+      second_user_id: match.second_user_id,
+      matched_on_first_usermovie_id: match.matched_on_first_usermovie_id,
+      matched_on_second_usermovie_id: match.matched_on_second_usermovie_id,
+      matched_on_movie_id: match.matched_on_movie_id,
+      matched_on_movie_title: match.matched_on_movie_title,
+      matched_on_movie_poster_url: match.matched_on_movie_poster_url
+    }
   end
 end

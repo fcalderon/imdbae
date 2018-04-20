@@ -25,6 +25,10 @@ defmodule Imdbae.Usermovies do
     Repo.all(from m in Usermovie, where: m.user_id == ^userId)
   end
 
+  def list_usermovies_by_movie_id(movie_id) do
+    Repo.all(from m in Usermovie, where: m.movie_id == ^movie_id)
+  end
+
   @doc """
   Gets a single usermovie.
 
