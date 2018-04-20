@@ -34,17 +34,17 @@ function deleteEntity(url, secured) {
     secured
   );
 
-  console.log('Getting', url);
+  console.log('Deleting', url);
   return new Promise((resolve, reject) => {
     fetch(url, {
       method: 'DELETE',
       headers: headers,
     })
-      .then(function(res) {
+      .then(function (res, err) {
         if (res.ok) {
           resolve();
         } else {
-          console.log(res);
+          console.error('Error deleting', url, res, err);
           reject(getAppropriateError(res.status));
         }
       })
@@ -72,7 +72,7 @@ function post(url, data, secured) {
         if (res.ok || res.status === 201) {
           resolve(res.json());
         } else {
-          console.log(res);
+          console.error('Error posting', url, data, res);
           reject(getAppropriateError(res.status));
         }
       })
@@ -108,7 +108,7 @@ function put(url, data, secured) {
   });
 }
 
-function getAppropriateError(httpStatusCode) {
+function getAppropriateError(httpStatusCode, message) {
   switch (httpStatusCode) {
     case 401: {
       return new UnauthorizedError();
@@ -116,8 +116,11 @@ function getAppropriateError(httpStatusCode) {
     case 404: {
       return new NotFoundError();
     }
+    case 400:
+    case 422:
+      return new BadRequestError(httpStatusCode, message);
     default: {
-      return new ServerError();
+      return new ServerError(httpStatusCode, message);
     }
   }
 }
@@ -141,9 +144,37 @@ function setAuthToken(headers, secured) {
   return headers;
 }
 
-export class NotFoundError extends Error {}
-export class UnauthorizedError extends Error {}
-export class ServerError extends Error {}
+export class IMDbaeError extends Error {
+  constructor(status, message) {
+    super();
+    this.status = status;
+    this.message = message;
+  }
+}
+
+export class NotFoundError extends IMDbaeError {
+  constructor(status = 404, message = 'Not found') {
+    super(status, message);
+  }
+}
+
+export class UnauthorizedError extends IMDbaeError {
+  constructor(status = 401, message = 'User unauthorized') {
+    super(status, message);
+  }
+}
+
+export class BadRequestError extends IMDbaeError {
+  constructor(status = 403, message = 'Bad request') {
+    super(status, message);
+  }
+}
+
+export class ServerError extends IMDbaeError {
+  constructor(status = 500, message = 'Server error') {
+    super(status, message);
+  }
+}
 
 export const CRUD = {
   get,

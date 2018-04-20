@@ -1,7 +1,21 @@
 import React from 'react';
 import {Link} from "react-router-dom";
+import {AuthActionCreator} from "../auth/state-config";
+import {connect} from "react-redux";
 
-export const Nav = (props) => {
+const mapStateToProps = state => {
+  return {
+    currentUser: state.auth.currentUser
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    handleLogOut: () => dispatch(AuthActionCreator.logout())
+  }
+};
+
+export const Nav = connect(mapStateToProps, mapDispatchToProps)((props) => {
   return (<nav className="navbar navbar-expand-lg navbar-light" style={{backgroundColor: "#FFC0CB"}}>
     <a className={'navbar-brand'}>IMDbae</a>
     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -58,4 +72,4 @@ export const Nav = (props) => {
       }
     </div>
   </nav>)
-};
+});

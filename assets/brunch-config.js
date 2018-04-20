@@ -47,14 +47,20 @@ exports.config = {
     babel: {
       // Do not use ES6 compiler in vendor code
       ignore: [/vendor/],
-      presets: ['env', 'react']
+      presets: ['env', 'react'],
+      plugins: ["transform-object-rest-spread"]
     },
-	 sass: {
-		 options: {
-		   includePaths: ["node_modules/bootstrap/scss"],
-		   precision: 8,
-		}
-	 }
+    sass: {
+      options: {
+        includePaths: ["node_modules/bootstrap/scss", "node_modules/font-awesome/scss"],
+        precision: 8,
+      }
+    },
+    copycat: {
+      "fonts": [
+        "node_modules/font-awesome/fonts"
+      ] // copy these files into priv/static/fonts/
+    }
   },
 
   modules: {

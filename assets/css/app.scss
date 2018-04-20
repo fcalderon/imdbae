@@ -1,12 +1,16 @@
 /* This file is for your main application css. */
+$icon-font-path: "/fonts/";
+
 @import "bootstrap";
+@import "font-awesome";
+
 
 .container {
 	margin-top: 20px;
 }
 
 .chat {
-    margin-top: 0em;
+  margin-top: 0;
 }
 
 .chat-room {
