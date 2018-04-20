@@ -15,6 +15,7 @@ defmodule ImdbaeWeb.UsermovieView do
       id: usermovie.id,
       movie_id: usermovie.movie_id,
       user_id: usermovie.user_id,
+      poster_url: usermovie.poster_url,
       title: usermovie.title
     }
   end

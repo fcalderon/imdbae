@@ -44,7 +44,7 @@ defmodule Seeds do
         second_user_id: u2.id,
         matched_on_first_usermovie_id: uM1.id,
         matched_on_second_usermovie_id: u2M1.id,
-        matched_on_movie_id: uM1.id,
+        matched_on_movie_id: uM1.movie_id,
         matched_on_movie_title: uM1.title
       }
     )
@@ -55,7 +55,7 @@ defmodule Seeds do
         second_user_id: u2.id,
         matched_on_first_usermovie_id: uM2.id,
         matched_on_second_usermovie_id: u2M2.id,
-        matched_on_movie_id: uM2.id,
+        matched_on_movie_id: uM2.movie_id,
         matched_on_movie_title: uM2.title
       }
     )
@@ -66,7 +66,7 @@ defmodule Seeds do
         second_user_id: u2.id,
         matched_on_first_usermovie_id: uM3.id,
         matched_on_second_usermovie_id: u2M3.id,
-        matched_on_movie_id: uM3.id,
+        matched_on_movie_id: uM3.movie_id,
         matched_on_movie_title: uM3.title
       }
     )

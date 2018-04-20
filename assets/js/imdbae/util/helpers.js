@@ -10,3 +10,10 @@ export const debounceEvent = (callback, time) => {
     }, time);
   };
 };
+
+export function toAction(actionType, payload) {
+  return {
+    type: actionType,
+    payload: payload
+  }
+}

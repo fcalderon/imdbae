@@ -1,10 +1,38 @@
 import React from 'react';
+import {connect} from "react-redux";
+import {AuthActionCreator} from "./state-config";
+import {Link} from "react-router-dom";
 
 
-export const Login = (props) => {
+const stateToProps = state => {
+  return {
+    credentials: state.auth.loginFormData,
+    error: state.auth.loginFormData.error
+  }
+};
+const dispatchToProps = dispatch => {
+  return {
+    onChange: fieldObject => dispatch(AuthActionCreator.updateLoginForm(fieldObject)),
+    handleLogin: credentials => dispatch(AuthActionCreator.authenticate(credentials))
+  }
+};
+
+export const Login = connect(stateToProps, dispatchToProps)((props) => {
   return (<div className={'card'}>
     <div className={'card-body'}>
       <h5>Login</h5>
+      {
+        props.error
+          ?
+          <div className="alert alert-danger alert-dismissible fade show" role="alert">
+            {props.error}
+            <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          :
+          <div/>
+      }
       <form>
         <div className={'form-group'}>
           <label htmlFor={'email-field'}>Email</label>
@@ -17,7 +45,12 @@ export const Login = (props) => {
                  onChange={($ev) => { props.onChange({ fieldName: 'password', fieldValue: $ev.target.value}) }}/>
         </div>
       </form>
-      <button className={'btn btn-primary'} onClick={() => {props.handleLogin()}}>Login</button>
+      <button className={'btn btn-primary'} onClick={() => {
+        props.handleLogin(props.credentials)
+      }}
+              disabled={props.credentials.formInvalid}>Login
+      </button>
+      <p className={'mt-2'}>Don't have an account? <Link to={'/signUp'}>Sign Up!</Link></p>
     </div>
   </div>);
-};
+});
