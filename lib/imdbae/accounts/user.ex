@@ -5,6 +5,9 @@ defmodule Imdbae.Accounts.User do
   schema "users" do
     field :email, :string
     field :name, :string
+    field :loc_lon, :float
+    field :loc_lat, :float
+    field :distance, :integer
 
     field :password_hash, :string
     field :password, :string, virtual: true
@@ -19,10 +22,10 @@ defmodule Imdbae.Accounts.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:email, :name, :password, :password_confirmation])
+    |> cast(attrs, [:email, :name, :password, :password_confirmation, :loc_lon, :loc_lat, :distance])
     |> unique_constraint(:email)
     |> validate_format(:email, ~r/@/)
-    |> validate_confirmation(:password) 
+    |> validate_confirmation(:password)
     |> validate_password(:password)
     |> put_pass_hash()
     |> validate_required([:email, :name, :password_hash])

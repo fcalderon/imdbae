@@ -17,3 +17,15 @@ export function toAction(actionType, payload) {
     payload: payload
   }
 }
+
+export function getGeoLocation(callBack) {
+  if (navigator.geolocation) {
+    console.log(navigator.geolocation);
+    navigator.geolocation.getCurrentPosition(callBack, err => {
+      console.error('Error getting location', err)
+    });
+  } else {
+    callBack(undefined);
+  }
+
+}

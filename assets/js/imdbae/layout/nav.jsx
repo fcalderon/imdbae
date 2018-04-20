@@ -52,9 +52,9 @@ export const Nav = connect(mapStateToProps, mapDispatchToProps)((props) => {
                 </Link>
               </li>
               <li className={'nav-item'}>
-                <a className={'nav-link'}>
+                <Link className={'nav-link'} to={'/profile'}>
                   {props.currentUser.name}
-                </a>
+                </Link>
               </li>
               <li className={'nav-item'}>
                 <a className={'nav-link'} onClick={() => props.handleLogOut()}>

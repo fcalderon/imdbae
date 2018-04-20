@@ -14,7 +14,11 @@ defmodule ImdbaeWeb.UserJsonView do
     IO.inspect("Rendering USER!!!!")
     %{id: user.id,
       name: user.name,
-      email: user.email}
+      email: user.email,
+      loc_lat: user.loc_lat,
+      loc_lon: user.loc_lon,
+      distance: user.distance
+    }
   end
 
   def render("authentication.json", %{user: user, token: token}) do
