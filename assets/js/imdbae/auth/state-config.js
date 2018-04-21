@@ -138,7 +138,7 @@ export function authReducer(state = DEFAULT_STATE, action) {
   }
 }
 
-const MIN_PASSWORD_LENGTH = 6;
+const MIN_PASSWORD_LENGTH = 8;
 
 function loginFormInvalid(data) {
   return !data || !data.email || data.email.length < 3 || !data.password || data.password.length < MIN_PASSWORD_LENGTH;
