@@ -3,9 +3,9 @@ import socket from '../../socket';
 import {connect} from 'react-redux';
 
 const mapStateToProps = (state) => {
-    console.log("STATE", state.room);
     return {
-        chat: state.room
+        chat: state.room,
+		user: state.auth.currentUser
     }
 };
 
@@ -33,10 +33,9 @@ class Message extends React.Component {
     }
 
     render() {
-        console.log("msg", this.props.chat.messages);
         return (<div className={'card chat-room'}>
              <div className={'card-header'}>
-               Hello //pass user
+               Hello {this.props.user.name}
              </div>
              <div className={'card-body card-messages'}>
                <div>{this.props.chat.messages.map((message, index) => <p key={index}>
