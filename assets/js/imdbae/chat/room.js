@@ -31,7 +31,7 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				messages: [
-					...state.message, 
+					...state.messages, 
 					action.message, 
 				],
 			};
