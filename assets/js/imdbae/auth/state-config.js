@@ -42,8 +42,8 @@ export const AuthActionCreator = {
   updateLoginForm: fieldObject => toAction(AuthActionTypes.UpdateLoginForm, fieldObject),
   authenticate: credentials => toAction(AuthActionTypes.Login, credentials),
   updateSignUpForm: fieldObject => toAction(AuthActionTypes.UpdateRegisterForm, fieldObject),
-  register: user => toAction(AuthActionTypes.Register, user),
-  logout: (history) => toAction(AuthActionTypes.Logout, {history: history})
+  register: user => toAction(AuthActionTypes.Register, {user, history}),
+  logout: (history) => toAction(AuthActionTypes.Logout, {history})
 };
 
 
@@ -60,11 +60,12 @@ export const AuthDataService = () => next => action => {
         });
       break;
     case AuthActionTypes.Register:
-      UserService.create(action.payload)
+      UserService.create(action.payload.user)
         .then(createdUser => {
-          authService.authenticate(action.payload)
+          authService.authenticate(action.payload.user)
             .then(tokenWrapper => {
-              return next(toAction(AuthActionTypes.LoginSuccess, tokenWrapper));
+              next(toAction(AuthActionTypes.LoginSuccess, tokenWrapper));
+              action.payload.history.push('/movies');
             })
             .catch(error => {
               return next(toAction(AuthActionTypes.LoginError, error));

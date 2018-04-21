@@ -13,7 +13,7 @@ const stateToProps = state => {
 const dispatchToProps = dispatch => {
   return {
     onChange: fieldObject => dispatch(AuthActionCreator.updateSignUpForm(fieldObject)),
-    handleRegister: user => dispatch(AuthActionCreator.register(user))
+    handleRegister: (user, history) => dispatch(AuthActionCreator.register(user, history))
   }
 };
 
@@ -66,7 +66,7 @@ export const Registration = connect(stateToProps, dispatchToProps)((props) => {
                  }}/>
         </div>
       </form>
-      <button className={'btn btn-primary'} onClick={() => props.handleRegister(props.formData)}
+      <button className={'btn btn-primary'} onClick={() => props.handleRegister(props.formData, props.history)}
               disabled={props.formData.formInvalid}>
         Register
       </button>

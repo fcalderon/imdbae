@@ -3,6 +3,8 @@ import {connect} from "react-redux";
 import {MatchListItem} from "./match-list-item";
 import {MatchesActionCreators} from "./state-config";
 import _ from 'lodash';
+import {Alert} from "reactstrap";
+import {Link} from "react-router-dom";
 
 class MatchesPageComponent extends React.Component {
   componentWillMount() {
@@ -23,6 +25,10 @@ class MatchesPageComponent extends React.Component {
   render() {
     return (<div>
       <h1>Matches</h1>
+      <Alert color={'info'}>
+        Showing matches within {this.props.currentUser.distance || 1} mile(s)!
+        You can update this on your <Link to={'/profile'}>profile settings</Link>.
+      </Alert>
       {this.processMatches(this.props.matches).map(match => <MatchListItem match={match} key={match.second_user_id}/>)}
     </div>);
   }

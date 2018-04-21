@@ -57,7 +57,7 @@ export const Nav = connect(mapStateToProps, mapDispatchToProps)(withRouter((prop
                 </Link>
               </li>
               <li className={'nav-item'}>
-                <a className={'nav-link'} onClick={() => props.handleLogOut(props.history)}>
+                <a className={'nav-link'} href={'#'} onClick={() => props.handleLogOut(props.history)}>
                   Log Out
                 </a>
               </li>
