@@ -24,5 +24,5 @@ config :imdbae,
 # You can use pwgen for this key
 # e.g. $ pwgen 32 1 -s -y
 config :imdbae, app_salt: "<put_secret_key_salt_here>"
-config :google_maps,
-       api_key: "AIzaSyD9ibjyQr-D535en8QPCgshM_Bl5dkClDY"
+config :google_maps, api_key: "<google_maps_api>"
+
