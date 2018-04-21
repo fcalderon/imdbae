@@ -19,6 +19,7 @@ $icon-font-path: "/fonts/";
 
 .card-messages, .card-users {
     height: 60vh;
+	overflow-y: scroll;
 }
 
 .card-header {
