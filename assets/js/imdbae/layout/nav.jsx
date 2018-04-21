@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import {AuthActionCreator} from "../auth/state-config";
 import {connect} from "react-redux";
 
@@ -11,11 +11,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleLogOut: () => dispatch(AuthActionCreator.logout())
+    handleLogOut: (history) => dispatch(AuthActionCreator.logout(history))
   }
 };
 
-export const Nav = connect(mapStateToProps, mapDispatchToProps)((props) => {
+export const Nav = connect(mapStateToProps, mapDispatchToProps)(withRouter((props) => {
   return (<nav className="navbar navbar-expand-lg navbar-light" style={{backgroundColor: "#FFC0CB"}}>
     <a className={'navbar-brand'} href="/"><img src="/images/imdbae.png" alt="IMDbae"/></a>
     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -57,7 +57,7 @@ export const Nav = connect(mapStateToProps, mapDispatchToProps)((props) => {
                 </Link>
               </li>
               <li className={'nav-item'}>
-                <a className={'nav-link'} onClick={() => props.handleLogOut()}>
+                <a className={'nav-link'} onClick={() => props.handleLogOut(props.history)}>
                   Log Out
                 </a>
               </li>
@@ -81,4 +81,4 @@ export const Nav = connect(mapStateToProps, mapDispatchToProps)((props) => {
       }
     </div>
   </nav>)
-});
+}));

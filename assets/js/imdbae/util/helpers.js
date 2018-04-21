@@ -34,7 +34,7 @@ export function getGeoLocation(callBack) {
 
 }
 
-function getGeoFromIp(callBack) {
+export function getGeoFromIp(callBack, errCallback) {
   // Attempt to get location from IP
 
   CRUD.getFromText('https://geoip-db.com/json/', true)
@@ -51,6 +51,7 @@ function getGeoFromIp(callBack) {
     })
     .catch(err => {
         console.error('Error getting location from geoip-db', err);
+      errCallback(err);
       }
     )
 }

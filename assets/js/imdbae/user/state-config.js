@@ -8,13 +8,15 @@ const UserActionTypes = {
   LoadUser: '[User] Load (start)',
   LoadUserSuccess: '[User] Load (success)',
   LoadUserError: '[User] Load (error)',
-  UpdateUserForm: '[User] Update form'
+  UpdateUserForm: '[User] Update form',
+  Clear: '[User] Clear'
 };
 
 export const UserActionCreators = {
   updateUser: user => toAction(UserActionTypes.UpdateUser, user),
   loadUser: userId => toAction(UserActionTypes.LoadUser, userId),
-  updateUserForm: formField => toAction(UserActionTypes.UpdateUserForm, formField)
+  updateUserForm: formField => toAction(UserActionTypes.UpdateUserForm, formField),
+  clear: () => toAction(UserActionTypes.Clear),
 };
 
 export const UserDataService = () => next => action => {
@@ -100,6 +102,8 @@ export const UserReducer = (state = DEFAULT_STATE, action) => {
         ...state,
         userForm: userForm
       };
+    case UserActionTypes.Clear:
+      return {...DEFAULT_STATE};
     default:
       return state;
   }

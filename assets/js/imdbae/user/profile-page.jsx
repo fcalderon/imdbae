@@ -6,7 +6,7 @@ import {getGeoLocation} from "../util/helpers";
 class ProfilePageComponent extends React.Component {
   componentWillMount() {
     if (!this.props.currentUser) {
-      this.props.history.push('/signUp');
+      this.props.history.push('/login');
     } else {
       this.props.loadUser(this.props.currentUser.id);
     }
@@ -34,12 +34,14 @@ class ProfilePageComponent extends React.Component {
         <div className={'form-group'}>
           <label htmlFor="distance_select">Select Distance</label>
           <select className={'form-control'} id="distance_select"
+                  value={this.props.formData.distance || 1}
                   onChange={$ev => this.props.onChange({fieldName: 'distance', fieldValue: $ev.target.value})}>
-            <option value={5} selected={5 === this.props.formData.distance}>Within 5 miles</option>
-            <option value={10} selected={10 === this.props.formData.distance}>Within 10 miles</option>
-            <option value={15} selected={15 === this.props.formData.distance}>Within 15 miles</option>
-            <option value={20} selected={20 === this.props.formData.distance}>Within 20 miles</option>
-            <option value={50} selected={50 === this.props.formData.distance}>Within 50 miles</option>
+            <option value={1}>Within 1 miles</option>
+            <option value={5}>Within 5 miles</option>
+            <option value={10}>Within 10 miles</option>
+            <option value={15}>Within 15 miles</option>
+            <option value={20}>Within 20 miles</option>
+            <option value={50}>Within 50 miles</option>
           </select>
         </div>
         <div>
@@ -76,7 +78,6 @@ class ProfilePageComponent extends React.Component {
 }
 
 function updateLoc(props, loc, fromIp) {
-  console.log('>>>>> Updating loc val', loc);
   props.onChange({fieldName: 'loc_lat', fieldValue: loc.coords.latitude});
   props.onChange({fieldName: 'loc_lon', fieldValue: loc.coords.longitude});
   if (fromIp === 'FROM_IP') {
