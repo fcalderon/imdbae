@@ -74,6 +74,9 @@ function post(url, data, secured) {
         }
 		else if (res.status === 422) {
 			console.log("422 Response", res);
+            res.json().then((body) => {
+                console.log("BODYERRORS", body.errors);
+            });
 		}
 		  else {
           console.log(res);
