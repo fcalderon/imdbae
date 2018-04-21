@@ -53,6 +53,10 @@ defmodule ImdbaeWeb.Router do
      resources "/users", UserJsonController, except: [:new, :edit]
      resources "/auth", AuthController
      resources "/usermovies", UsermovieController
+     resources "/rooms", RoomController, except: [:new, :edit]
+     get "/users/:id/rooms", UserController, :rooms
+     resources "/rooms", RoomController, only: [:index, :create]
+     post "/rooms/:id/join", RoomController, :join
   end
 
   def authorize_user(conn, params) do

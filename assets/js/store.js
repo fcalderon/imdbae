@@ -7,6 +7,8 @@ import {AuthDataService, authReducer} from "./imdbae/auth/state-config";
 import throttle from "lodash/throttle";
 import {MatchesDataService, MatchesReducer} from "./imdbae/matches/state-config";
 import {UserDataService, UserReducer} from "./imdbae/user/state-config";
+import rooms from './imdbae/chat/rooms';
+import room from './imdbae/chat/room'; 
 
 
 const imdbaeReducers = {
@@ -14,7 +16,9 @@ const imdbaeReducers = {
   userMovies: userMoviesReducer,
   auth: authReducer,
   matches: MatchesReducer,
-  user: UserReducer
+  user: UserReducer,
+  rooms: rooms,
+  room: room,
 };
 
 function root_reducer(state0, action) {
