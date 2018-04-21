@@ -18,3 +18,25 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
   * Docs: https://hexdocs.pm/phoenix
   * Mailing list: http://groups.google.com/group/phoenix-talk
   * Source: https://github.com/phoenixframework/phoenix
+
+# Production Deployment
+
+* Create production db
+* Configure credentials under config/prod.secret.exs. There's an example file for your reference.
+* Add the site config to nginx there's an example in this dir
+* For HTTPS, you can use Let's Encrypt and Certbot:
+
+# Ubuntu
+
+```
+sudo apt-get update
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install python-certbot-nginx
+```
+
+# Obtain cert
+
+```
+sudo certbot --nginx -d imdbae-domain.com
+```
