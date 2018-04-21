@@ -6,6 +6,12 @@ import {Chatbox} from './chatbox';
 
 
 export const Chat = (props) => {
+    let channel = socket.channel("chats:1", {});
+
+    channel.join()
+	    .receive("ok", resp => { console.log("joined", resp) })
+	    .receive("error", resp => { console.log("failed", resp) });
+
     return (<div className={'chat container'}>
               <div className={'row'}>
                 <div className={'col-md-3'}>

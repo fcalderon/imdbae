@@ -13,10 +13,5 @@ let socket = new Socket("/socket", {params: {token: localStorage.getItem("__AUTH
 
 socket.connect()
 
-let channel = socket.channel("chats:1", {});
-
-channel.join()
-	.receive("ok", resp => { console.log("joined", resp) })
-	.receive("error", resp => { console.log("failed", resp) });
 
 export default socket
