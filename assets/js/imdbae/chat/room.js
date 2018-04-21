@@ -1,18 +1,10 @@
 //Attrib: Let's build a slack clone from Medium
 
-
 const initialState = {
 	channel: null,
 	currentRoom: {}, 
 	messages: [],
-	presentUsers: [],
 	loadingOlderMessages: false, 
-	pagination: {
-		total_pages: 0,
-		total_entries: 0,
-		page_size: 0,
-		page_number: 0,
-	},
 }
 
 export default function (state = initialState, action) {
@@ -25,8 +17,6 @@ export default function (state = initialState, action) {
 				messages: action.response.messages.reverse(),
 				pagination: action.response.pagination,
 			};
-		case 'USER_LEFT_ROOM':
-			return initialState;
 		case 'MESSAGE_CREATED':
 			return {
 				...state,
@@ -34,11 +24,6 @@ export default function (state = initialState, action) {
 					...state.messages, 
 					action.payload, 
 				],
-			};
-		case 'ROOM_PRESENCE_UPDATE':
-			return {
-				...state,
-				presentUser: action.presentUsers,
 			};
 		case 'FETCH_MESSAGES_REQUEST':
 			return {
