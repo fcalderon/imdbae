@@ -17,19 +17,55 @@ defmodule ImdbaeWeb.MatchController do
         if (matchedWithUserId != nil) do
           matches = Social.list_matches_by_first_and_second_user_id(userId, matchedWithUserId)
         else
-          matches = Social.list_matches_by_first_user_id(userId)
+          all_matches = Social.list_matches_by_first_user_id(userId)
+          # get matches within range
+          matches = Enum.filter(
+                      all_matches,
+                      fn (m) -> m.second_user != nil and m.second_user.loc_lat != nil and m.second_user.loc_lon != nil
+                      end
+                    ) # remove nils
+                    |> Enum.filter(fn (m) -> within_range(m.first_user, m.second_user) end) # test range
+
         end
       else
         matches = Social.list_matches()
       end
-
-      IO.inspect(matches)
 
       render(conn, "index.json", matches: matches)
     else
       conn
       |> send_resp(:unauthorized, "Must be logged in to access this resource")
     end
+  end
+
+  defp within_range(first_user, second_user) do
+    default_distance = 1.6 # one mile
+
+    if (first_user.distance != nil) do
+      first_preferred_distance = first_user.distance * 1.6 # distance is in miles, convert to KMs
+    else
+      first_preferred_distance = default_distance
+    end
+
+    if (second_user.distance != nil) do
+      second_preferred_distance = second_user.distance * 1.6 # distance is in miles, convert to KMs
+    else
+      second_preferred_distance = default_distance
+    end
+
+
+    Imdbae.Social.DistanceCalculator.close_enough(
+      {first_user.loc_lat, first_user.loc_lon},
+      {second_user.loc_lat, second_user.loc_lon},
+      first_preferred_distance
+    )
+    and
+    Imdbae.Social.DistanceCalculator.close_enough(
+      {first_user.loc_lat, first_user.loc_lon},
+      {second_user.loc_lat, second_user.loc_lon},
+      second_preferred_distance
+    )
+
   end
 
   def create(conn, %{"match" => match_params}) do
