@@ -26,6 +26,29 @@ function get(url, secured) {
   });
 }
 
+function getFromText(url, isJson) {
+  console.log('Getting', url);
+  return new Promise((resolve, reject) => {
+    fetch(url)
+      .then((response) => response.text())
+      .then(function (text) {
+        let _toReturn = text;
+        if (isJson) {
+          try {
+            _toReturn = JSON.parse(_toReturn);
+          } catch (e) {
+            console.error('Unable to parse, is this a json?', e)
+          }
+        }
+        resolve(_toReturn);
+      })
+      .catch(function (error) {
+        console.log('Error with request', url, error);
+        reject(error);
+      });
+  });
+}
+
 function deleteEntity(url, secured) {
   let headers = setAuthToken(
     {
@@ -181,4 +204,5 @@ export const CRUD = {
   post,
   put,
   delete: deleteEntity,
+  getFromText
 };

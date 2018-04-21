@@ -46,6 +46,7 @@ const DEFAULT_STATE = {
     email: '',
     loc_lon: null,
     loc_lat: null,
+    loc_from_ip: false,
     distance: 0,
     formInvalid: true
   }

@@ -26,4 +26,9 @@ config :logger, :console,
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
 
+# You can use pwgen for this key
+# e.g. $ pwgen 32 1 -s -y
 config :imdbae, app_salt: "ffrJBykjhg!cqv+{qm*>D_]2!K%_BiZX,GqeOllkuhkl"
+
+config :google_maps,
+       api_key: "AIzaSyD9ibjyQr-D535en8QPCgshM_Bl5dkClDY"

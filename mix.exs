@@ -20,7 +20,7 @@ defmodule Imdbae.Mixfile do
   def application do
     [
       mod: {Imdbae.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:google_maps, :logger, :runtime_tools]
     ]
   end
 
@@ -43,7 +43,8 @@ defmodule Imdbae.Mixfile do
       {:cowboy, "~> 1.0"},
       {:distillery, "~> 1.5", runtime: false},
       {:comeonin, "~> 4.0"},
-      {:argon2_elixir, "~> 1.2"}
+      {:argon2_elixir, "~> 1.2"},
+      {:google_maps, "~> 0.9"}
     ]
   end
 

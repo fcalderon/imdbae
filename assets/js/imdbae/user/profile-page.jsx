@@ -61,7 +61,7 @@ class ProfilePageComponent extends React.Component {
               </div>
           }
           <button className={'btn btn-sm btn-info'} onClick={() => {
-            getGeoLocation((loc) => updateLoc(this.props, loc))
+            getGeoLocation((loc, fromIp) => updateLoc(this.props, loc, fromIp))
           }}>Update Location
           </button>
         </div>
@@ -75,10 +75,13 @@ class ProfilePageComponent extends React.Component {
   }
 }
 
-function updateLoc(props, loc) {
+function updateLoc(props, loc, fromIp) {
   console.log('>>>>> Updating loc val', loc);
   props.onChange({fieldName: 'loc_lat', fieldValue: loc.coords.latitude});
   props.onChange({fieldName: 'loc_lon', fieldValue: loc.coords.longitude});
+  if (fromIp === 'FROM_IP') {
+    props.onChange({fieldName: 'loc_from_ip', fieldValue: true});
+  }
 }
 
 const mapStateToProps = state => ({

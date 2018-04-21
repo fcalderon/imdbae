@@ -22,10 +22,46 @@ defmodule Seeds do
     Repo.delete_all(Usermovie)
     Repo.delete_all(User)
 
-    u1 = Repo.insert!(%User{email: "anna@gmail.com", name: "anna", password_hash: p})
-    u2 = Repo.insert!(%User{email: "betty@gmail.com", name: "betty", password_hash: p})
-    u3 = Repo.insert!(%User{email: "candace@gmail.com", name: "candace", password_hash: p})
-    u4 = Repo.insert!(%User{email: "devin@gmail.com", name: "devin", password_hash: p})
+    u1 = Repo.insert!(
+      %User{
+        email: "anna@gmail.com",
+        name: "anna",
+        password_hash: p,
+        loc_lat: 42.3364553,
+        loc_lon: -71.0349193,
+        distance: 1
+      }
+    )
+    u2 = Repo.insert!(
+      %User{
+        email: "betty@gmail.com",
+        name: "betty",
+        password_hash: p,
+        loc_lat: 42.339752,
+        loc_lon: -71.089111,
+        distance: 1
+      }
+    )
+    u3 = Repo.insert!(
+      %User{
+        email: "candace@gmail.com",
+        name: "candace",
+        password_hash: p,
+        loc_lat: 42.339752,
+        loc_lon: -71.089111,
+        distance: 1
+      }
+    )
+    u4 = Repo.insert!(
+      %User{
+        email: "devin@gmail.com",
+        name: "devin",
+        password_hash: p,
+        loc_lat: 42.339752,
+        loc_lon: -71.089111,
+        distance: 1
+      }
+    )
 
     uM1 = Repo.insert!(%Usermovie{user_id: u1.id, movie_id: 284054, title: "Black Panther"})
     uM2 = Repo.insert!(%Usermovie{user_id: u1.id, movie_id: 27205, title: "Inception"})
