@@ -22,7 +22,7 @@ $icon-font-path: "/fonts/";
 }
 
 .card-header {
-    background-color: pink; //pick an actual rbg val later
+    background-color: #FFC2AE;
 }
 
 #chat-messages {
@@ -34,6 +34,14 @@ $icon-font-path: "/fonts/";
   overflow-y: hidden;
 }
 
+.navbar {
+    background-color: #5F0025;
+}
+
+.navbar .navbar-collapse .nav-item .nav-link {
+    color: #FFFFFF;
+}
+
 
 footer {
   position: fixed;
@@ -42,5 +50,5 @@ footer {
 	padding-left: 20px;
 	padding-top: 15px;
 	width: 100%;
-	background-color: pink;
+	background-color: #FFC2AE;
 }
