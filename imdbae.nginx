@@ -1,0 +1,17 @@
+server {
+
+	server_name imdbae-domain.com;
+
+	location / {
+		proxy_pass http://localhost:5120; # change port accordingly
+		#try_files $uri $uri/ =404;
+                proxy_set_header Origin '';
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "upgrade";
+	}
+
+	# Might need to change if HTTPS
+	listen 80;
+    listen [::]:80;
+
+}
