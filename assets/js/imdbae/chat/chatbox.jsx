@@ -11,7 +11,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        submitMsg: (ev, message) => {
+        submitMsg: (ev, message, user) => {
+            message = user + ": " + message;
             ev.preventDefault();
             dispatch({type: 'MESSAGE_CREATED', payload: message})
         }
@@ -41,7 +42,7 @@ class Message extends React.Component {
                <div>{this.props.chat.messages.map((message, index) => <p key={index}>
                        {message}</p>)}</div>
              </div>
-             <form onSubmit={(ev) => {this.props.submitMsg(ev, this.state.value); this.setState({value: ""})}}>
+             <form onSubmit={(ev) => {this.props.submitMsg(ev, this.state.value, this.props.user.name); this.setState({value: ""})}}>
                <input type="text" id="message-input" className={'form-control'} 
                  placeholder="Start chatting..."
                  onChange={this.handleChange}
