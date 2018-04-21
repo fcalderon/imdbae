@@ -10,11 +10,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    console.log("DISPATHC");
     return {
         submitMsg: (ev, message) => {
-            console.log("DISMESSAGE", message);
-            message = message + "\n";
             ev.preventDefault();
             dispatch({type: 'MESSAGE_CREATED', payload: message})
         }
@@ -32,7 +29,6 @@ class Message extends React.Component {
     }
 
     handleChange(event) {
-        console.log("VAL", this.state.value);
         this.setState({value: event.target.value});
     }
 
@@ -43,12 +39,14 @@ class Message extends React.Component {
                Hello //pass user
              </div>
              <div className={'card-body card-messages'}>
-               <p>{this.props.chat.messages}</p>
+               <div>{this.props.chat.messages.map((message, index) => <p key={index}>
+                       {message}</p>)}</div>
              </div>
-             <form onSubmit={(ev) => this.props.submitMsg(ev, this.state.value)}>
+             <form onSubmit={(ev) => {this.props.submitMsg(ev, this.state.value); this.setState({value: ""})}}>
                <input type="text" id="message-input" className={'form-control'} 
                  placeholder="Start chatting..."
                  onChange={this.handleChange}
+                 value={this.state.value}
                  />
              </form>
            </div>);
