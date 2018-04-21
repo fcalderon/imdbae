@@ -48,9 +48,7 @@ class MatchButton extends React.Component {
 		super(props);
 		this.second_user = props.props.second_user;
 		this.combined_id = this.combinedIds(props.props.first_user, props.props.second_user);
-	}
-	render () {
-		return <div><button className={'btn btn-block'} style={{margin: '3px'}}>{this.second_user.name}</button></div>
+        this.changeChannel = this.changeChannel.bind(this);
 	}
 
 	combinedIds(first_user, second_user) {
@@ -60,6 +58,21 @@ class MatchButton extends React.Component {
 		arr.sort();
 		let new_id = arr.join('');
 		return new_id;
+	}
+
+    changeChannel() {
+        let channel = socket.channel("chats:" + this.combined_id, {});
+        channel.join()
+            .receive("ok", resp => { console.log("joined channel", resp) })
+            .receive("error", resp => { console.log("error joining channel", resp) });
+    }
+
+	render () {
+		return (<div>
+                <button className={'btn btn-block'} style={{margin: '3px'}} 
+                        onClick={this.changeChannel}>
+                    {this.second_user.name}
+                </button></div>)
 	}
 }
 
