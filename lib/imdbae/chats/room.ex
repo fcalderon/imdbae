@@ -1,3 +1,5 @@
+#Adapted from Let's Build a slack clone on Medium
+
 defmodule Imdbae.Chats.Room do
   use Ecto.Schema
   import Ecto.Changeset
@@ -6,7 +8,7 @@ defmodule Imdbae.Chats.Room do
   schema "rooms" do
     field :name, :string
     field :topic, :string
-    many_to_many :users, Imdbae.Accounts.User, join_through: "userrooms"
+    many_to_many :users, Imdbae.Accounts.User, join_through: "user_rooms"
 
     timestamps()
   end

@@ -3,6 +3,7 @@ defmodule ImdbaeWeb.UserJsonController do
 
   alias Imdbae.Accounts
   alias Imdbae.Accounts.User
+  alias Imdbae.Repo
 
   action_fallback ImdbaeWeb.FallbackController
 
@@ -24,7 +25,6 @@ defmodule ImdbaeWeb.UserJsonController do
       |> render("show.json", user: user)
     end
   end
-
 
   def show(conn, %{"id" => id}) do
     if (Map.has_key?(Map.get(conn, :assigns), :authenticated_user_id)) do
@@ -59,5 +59,11 @@ defmodule ImdbaeWeb.UserJsonController do
       conn
       |> send_resp(:unauthorized, "Must be logged in to access this resource")
     end
+  end
+
+  def rooms(conn, _params) do
+    current_user = get_session(conn, :current_user)
+    rooms = Repo.all Ecto.assoc(current_user, :rooms)
+    render(conn, Chats.RoomView, "index.json", %{rooms: rooms})
   end
 end
