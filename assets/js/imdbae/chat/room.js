@@ -32,7 +32,7 @@ export default function (state = initialState, action) {
 				...state,
 				messages: [
 					...state.messages, 
-					action.message, 
+					action.payload, 
 				],
 			};
 		case 'ROOM_PRESENCE_UPDATE':

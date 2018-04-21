@@ -14,6 +14,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         submitMsg: (ev, message) => {
             console.log("DISMESSAGE", message);
+            message = message + "\n";
             ev.preventDefault();
             dispatch({type: 'MESSAGE_CREATED', payload: message})
         }
@@ -36,12 +37,13 @@ class Message extends React.Component {
     }
 
     render() {
+        console.log("msg", this.props.chat.messages);
         return (<div className={'card chat-room'}>
              <div className={'card-header'}>
                Hello //pass user
              </div>
              <div className={'card-body card-messages'}>
-               <div>{this.props.chat.messages}</div>
+               <p>{this.props.chat.messages}</p>
              </div>
              <form onSubmit={(ev) => this.props.submitMsg(ev, this.state.value)}>
                <input type="text" id="message-input" className={'form-control'} 
