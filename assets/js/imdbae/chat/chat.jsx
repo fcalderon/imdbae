@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {Matchlist} from './matchlist';
 import {Chatbox} from './chatbox';
 
+
 export const Chat = (props) => {
     return (<div className={'chat container'}>
               <div className={'row'}>
