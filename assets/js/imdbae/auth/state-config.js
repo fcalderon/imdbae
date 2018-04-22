@@ -1,8 +1,6 @@
 import {toAction} from "../util/helpers";
 import {authService} from "./service/auth.service";
 import {UserService} from "../user/service/user.service";
-import {UserMoviesActionCreator} from "../movies/user-movies-state-config";
-import {UserActionCreators} from "../user/state-config";
 
 const AuthActionTypes = {
   GetCurrentUserDone: '[Auth] get current user (done)',
@@ -77,8 +75,7 @@ export const AuthDataService = () => next => action => {
         });
       break;
     case AuthActionTypes.Logout:
-      next(UserMoviesActionCreator.reset());
-      next(UserActionCreators.clear());
+      next({type: 'ROOT_RESET'});
       if (action.payload && action.payload.history) {
         action.payload.history.push('login');
       }
