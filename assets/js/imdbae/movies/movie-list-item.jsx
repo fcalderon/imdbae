@@ -5,7 +5,7 @@ export const MovieListItem = (props) => {
     <div className="card-body">
       <div className={'row'}>
         <div className={'col-sm-3'}>
-          <img src={`http://image.tmdb.org/t/p/w185/${props.movie.poster_path}`}/>
+          <img src={`https://image.tmdb.org/t/p/w185/${props.movie.poster_path}`}/>
         </div>
         <div className={'col-sm-9'}>
           <h3>{props.movie.title}</h3>
