@@ -35,7 +35,7 @@ defmodule ImdbaeWeb.ChatsChannel do
     user = Accounts.get_user(socket.assigns.user_id)
     broadcast! socket, "message:new", %{user: user.name,
                                         message: payload["message"]}
-    {:noreply, socket}
+    {:reply, {:ok, payload}, socket}
   end
 
   # Add authorization logic here as required.

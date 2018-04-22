@@ -23,14 +23,14 @@ defmodule ImdbaeWeb.UserSocket do
   # performing token verification on connect.
   def connect(%{"token" => user_token}, socket) do
     case Phoenix.Token.verify(socket,
-                             "user_id",
-                             user_token,
-                             max_age: 100000) do
+    Application.get_env(:imdbae, :app_salt),
+           user_token
+         ) do
       {:ok, user_id} ->
         {:ok, assign(socket, :user_id, user_id)}
       {:error, _reason} ->
         :error
-    end
+      end
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
