@@ -1,42 +1,9 @@
 # Imdbae
 
-To start your Phoenix server:
+A single-page application to allow people to find their movie soulmates. Users like movies, and are matched with other people who have liked the same movie. They can choose how far away a match can be, and the chat page lets them talk to their matches. 
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+This application uses React and Redux, with an Elixir backend.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
-
-## Learn more
-
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
-
-# Production Deployment
-
-* Create production db
-* Configure credentials under config/prod.secret.exs. There's an example file for your reference.
-* Add the site config to nginx there's an example in this dir
-* For HTTPS, you can use Let's Encrypt and Certbot:
-
-# Ubuntu
-
-```
-sudo apt-get update
-sudo add-apt-repository ppa:certbot/certbot
-sudo apt-get update
-sudo apt-get install python-certbot-nginx
-```
-
-# Obtain cert
-
-```
-sudo certbot --nginx -d imdbae-domain.com
-```
+Notes:
+-
+* duplicate emails are not allowed
