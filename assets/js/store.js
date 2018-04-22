@@ -23,10 +23,6 @@ const imdbaeReducers = {
 function root_reducer(state0, action) {
   console.log('reducer', action);
 
-  if (action.type === 'ROOT_RESET') {
-    return undefined
-  }
-
   let reducer = combineReducers(imdbaeReducers);
   let state1 = reducer(state0, action);
   console.log('state1', state1);

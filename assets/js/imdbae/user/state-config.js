@@ -102,7 +102,7 @@ export const UserReducer = (state = DEFAULT_STATE, action) => {
         ...state,
         userForm: userForm
       };
-    case UserActionTypes.Clear:
+    case 'ROOT_RESET':
       return {...DEFAULT_STATE};
     default:
       return state;

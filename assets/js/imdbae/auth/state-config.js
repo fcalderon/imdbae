@@ -135,7 +135,7 @@ export function authReducer(state = DEFAULT_STATE, action) {
         ...state, signUpFormData: {...state.signUpFormData, error: registrationError}
       };
     case AuthActionTypes.LogoutSuccess:
-      return {...state, currentUser: undefined, token: undefined};
+      return DEFAULT_STATE;
     default:
       return state;
   }

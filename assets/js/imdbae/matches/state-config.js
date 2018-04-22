@@ -50,6 +50,8 @@ export const MatchesReducer = (state = INITIAL_STATE, action) => {
         // TODO error reason provided, update message accordingly
       }
       return {...state, matches: {...state.matches, error: getAllErrorMessage, loading: false}};
+    case 'ROOT_RESET':
+      return INITIAL_STATE;
     default:
       return state;
   }

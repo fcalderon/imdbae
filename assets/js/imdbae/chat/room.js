@@ -147,6 +147,8 @@ export default function (state = initialState, action) {
 				...state,
 				currentRoom: action.response.data,
 			};
+    case 'ROOT_RESET':
+      return initialState;
 		default:
 			return state;
 	}

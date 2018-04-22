@@ -14,12 +14,6 @@ defmodule Imdbae.Social.DistanceCalculator do
 
   def close_enough(pos1, pos2, preferred_distance) do
     distance = calc_distance_between_positions(pos1, pos2)
-    IO.inspect("Is close enough?")
-    IO.inspect(pos1)
-    IO.inspect(pos2)
-    IO.inspect(distance)
-    IO.inspect(preferred_distance)
-    IO.inspect(preferred_distance >= distance + 0.1)
     preferred_distance >= distance - 0.1 # minus a tenth of a km
   end
 end

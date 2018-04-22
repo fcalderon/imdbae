@@ -31,9 +31,6 @@ export const UserMoviesActionCreator = {
   getAll: userId => {
     return {type: UserMoviesActionTypes.GetAll, payload: userId}
   },
-  reset: () => {
-    return {type: UserMoviesActionTypes.Reset}
-  }
 };
 
 export const userMoviesDataService = () => next => action => {
@@ -80,7 +77,7 @@ export function userMoviesReducer(state = DEFAULT_USER_MOVIES_STATE, action) {
     case UserMoviesActionTypes.RemoveError:
     case UserMoviesActionTypes.AddError:
       return {...state, userMovies: {...state.userMovies, error: action.payload, loading: false}};
-    case UserMoviesActionTypes.Reset:
+    case 'ROOT_RESET':
       return {...DEFAULT_USER_MOVIES_STATE};
     default:
       return state;
