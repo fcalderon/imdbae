@@ -1,25 +1,35 @@
 import React from 'react';
-import socket from '../../socket';
-import {connect} from 'react-redux';
 import {Matchlist} from './matchlist';
 import {Chatbox} from './chatbox';
+import {MatchesActionCreators} from "../matches/state-config";
+import {connect} from "react-redux";
 
 
-export const Chat = (props) => {
-    let channel = socket.channel("chats:1", {});
+export class ChatComponent extends React.Component {
+  componentWillMount() {
+    this.props.loadMatches(this.props.currentUser)
+  }
 
-    channel.join()
-	    .receive("ok", resp => { console.log("joined", resp) })
-	    .receive("error", resp => { console.log("failed", resp) });
-
+  render() {
     return (<div className={'chat container'}>
-              <div className={'row'}>
-                <div className={'col-md-3'}>
-                  <Matchlist props={props}/>
-                </div>
-                <div className={'col-md-9'}>
-                  <Chatbox props={props}/>
-                </div>
-              </div>
-            </div>);
+      <div className={'row'}>
+        <div className={'col-md-3'}>
+          <Matchlist props={this.props}/>
+        </div>
+        <div className={'col-md-9'}>
+          <Chatbox props={this.props}/>
+        </div>
+      </div>
+    </div>);
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    loadMatches: (user) => {
+      dispatch(MatchesActionCreators.getAll(user.id));
+    }
+  }
 };
+
+export const Chat = connect(state => ({currentUser: state.auth.currentUser}), mapDispatch)(ChatComponent);

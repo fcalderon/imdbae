@@ -76,6 +76,7 @@ export const AuthDataService = () => next => action => {
       break;
     case AuthActionTypes.Logout:
       next(UserMoviesActionCreator.reset());
+      next({type: 'ROOT_RESET'});
       return next(toAction(AuthActionTypes.LogoutSuccess));
 
   }

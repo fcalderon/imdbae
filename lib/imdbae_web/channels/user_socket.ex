@@ -24,8 +24,8 @@ defmodule ImdbaeWeb.UserSocket do
   def connect(%{"token" => user_token}, socket) do
     case Phoenix.Token.verify(socket,
     Application.get_env(:imdbae, :app_salt),
-      user_token,
-      max_age: 100000) do
+           user_token
+         ) do
       {:ok, user_id} ->
         {:ok, assign(socket, :user_id, user_id)}
       {:error, _reason} ->

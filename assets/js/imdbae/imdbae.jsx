@@ -32,7 +32,14 @@ class IMDbaeComponent extends React.Component {
           <Route path={'/myMovies'} exact={true} component={MyMoviesPage}/>
           <Route path={'/matches'} exact={true} component={MatchesPage}/>
           <Route path={'/profile'} exact={true} component={ProfilePage}/>
-          <Route path={'/chat'} exact={true} component={Chat}/>
+          <Route path={'/chat'} exact={true}
+                 render={(props) => {
+                   if (!this.userLoggedIn()) {
+                     props.history.push('/');
+                     return <div/>
+                   }
+                   return <Chat/>
+                 }}/>
           <Route path={'/login'} exact={true}
                  render={(props) => {
                    if (this.userLoggedIn()) {
