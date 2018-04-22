@@ -56,7 +56,7 @@ config :logger, level: :info
 # Alternatively, you can configure exactly which server to
 # start per endpoint:
 #
-#     config :imdbae, ImdbaeWeb.Endpoint, server: true
+config :imdbae, ImdbaeWeb.Endpoint, server: true
 #
 
 # Finally import the config/prod.secret.exs
