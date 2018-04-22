@@ -18,6 +18,9 @@ if [ $USER != "imdbae" ]; then
 fi
 
 mix deps.get
+mix ecto.create
+mix ecto.migrate
+
 (cd assets && npm install)
 (cd assets && ./node_modules/brunch/bin/brunch b -p)
 mix phx.digest
